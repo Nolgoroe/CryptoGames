@@ -9,15 +9,17 @@ public class Launcher : MonoBehaviour
     [SerializeField] private float pullSpeed = 10;
     [SerializeField] private float returnSpeed = 0.2f;
     [SerializeField] private Transform pullPoint;
+    [SerializeField] private float gravityMod;
 
     [SerializeField] private Rigidbody currentBall;
     [SerializeField] private float currentForce = 0;
 
     bool holding = false;
 
-
     void Update()
     {
+        Physics.gravity = new Vector3(0, -9.8f * gravityMod, 0);
+
         if (Input.touchCount <= 0) return;
 
         Touch touch = Input.GetTouch(0);
