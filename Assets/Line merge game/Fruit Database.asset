@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9337c98a12da94cb6ea8b8ab355f5d, type: 3}
+  m_Name: Fruit Database
+  m_EditorClassIdentifier: 
+  fruits:
+  - {fileID: 7087281512480805564, guid: ce5d4e159e7500b41891e6dafe592581, type: 3}
+  - {fileID: 8159057257748396592, guid: 6d7e144c2c175474f8a15343bab094d1, type: 3}
+  - {fileID: -904394378433852525, guid: 3084bfe48ea830b4eb71a9bd39d314bb, type: 3}
+  - {fileID: -2328189678396353387, guid: 979891e3f5916294da5530616526d483, type: 3}
+  - {fileID: 214555923583516394, guid: 59c38b63721690948ba67cda0bb7c6e9, type: 3}
+  - {fileID: -5712973362545050883, guid: 7fd5240953b65d84d86ab1dc176c4b02, type: 3}
+  NonPhysicFruits:
+  - {fileID: 8962211896355919250, guid: 4a730bda8f45a094bb7835b0eb898e22, type: 3}
+  - {fileID: 6886176019901636531, guid: 8548cc0d604f89146a198639cfdfbe10, type: 3}
+  - {fileID: 8962211896355919250, guid: f6d2217f7ebc9ca48b90b951bd1da1ad, type: 3}
+  - {fileID: 6655428607504979169, guid: 732b281c71552084eb03275d8197e9f2, type: 3}
+  - {fileID: 6655428607504979169, guid: 663d8d1c46d373c4aa8fd98f5a7923b3, type: 3}
+  - {fileID: 6886176019901636531, guid: 441b659d2d9d48a45adbdf56c31df038, type: 3}
+  fruitCombos:
+  - originFruit: {fileID: 7087281512480805564, guid: ce5d4e159e7500b41891e6dafe592581,
+      type: 3}
+    combinedFruit: {fileID: 8159057257748396592, guid: 6d7e144c2c175474f8a15343bab094d1,
+      type: 3}
+  - originFruit: {fileID: 8159057257748396592, guid: 6d7e144c2c175474f8a15343bab094d1,
+      type: 3}
+    combinedFruit: {fileID: -904394378433852525, guid: 3084bfe48ea830b4eb71a9bd39d314bb,
+      type: 3}
+  - originFruit: {fileID: -904394378433852525, guid: 3084bfe48ea830b4eb71a9bd39d314bb,
+      type: 3}
+    combinedFruit: {fileID: -2328189678396353387, guid: 979891e3f5916294da5530616526d483,
+      type: 3}
+  - originFruit: {fileID: -2328189678396353387, guid: 979891e3f5916294da5530616526d483,
+      type: 3}
+    combinedFruit: {fileID: 214555923583516394, guid: 59c38b63721690948ba67cda0bb7c6e9,
+      type: 3}
+  - originFruit: {fileID: 214555923583516394, guid: 59c38b63721690948ba67cda0bb7c6e9,
+      type: 3}
+    combinedFruit: {fileID: -5712973362545050883, guid: 7fd5240953b65d84d86ab1dc176c4b02,
+      type: 3}
