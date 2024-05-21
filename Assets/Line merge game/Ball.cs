@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     [SerializeField] int ballIndex;
     [SerializeField] int ballScoreSpawn;
     [SerializeField] int ballScoreMerge;
+    [SerializeField] float ballPowerToAdd;
+    [SerializeField] float ballTimeToAdd;
     [SerializeField] float ballOffsetSize;
     int layerIndex;
 
@@ -17,6 +19,8 @@ public class Ball : MonoBehaviour
         layerIndex = gameObject.layer;
 
         ScoreManager.instance.AddScore(ballScoreSpawn); //does this break single responsibility? FLAG
+
+        GeneralStatsManager.instance.AddToBallAmountList(this); //FLAG - I feel this is weird..
     }
 
     private void Start()
@@ -72,6 +76,9 @@ public class Ball : MonoBehaviour
         //add score, show effects, etc...
 
         ScoreManager.instance.AddScore(ballScoreMerge); //does this break single responsibility? FLAG
+        PowerupManager.instance.UpdateCurrentPowerAmount(ballPowerToAdd);
+
+        GameManager.instance.SendAddToTimer(ballTimeToAdd);
     }
 
     #region Public Returns

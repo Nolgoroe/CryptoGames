@@ -4,17 +4,33 @@ using UnityEngine;
 
 public abstract class PowerupBase : MonoBehaviour
 {
-    [SerializeField] float amountNeededToUsePower;
-    [SerializeField] float currentAmountHas;
+    [Header("Base data")]
+    [SerializeField] float amountNeededToUsePower = 1;
+
+    [Header("Live data")]
+    [SerializeField] float currentPowerAmount;
+
 
     private void Start()
     {
-        currentAmountHas = 0;
+        currentPowerAmount = 0;
     }
 
-    protected abstract void UsePower();
-    protected virtual void AddToPower(float amount)
+    public abstract void UsePower();
+    public virtual void AddToPower(float amount)
     {
-        currentAmountHas += amount;
+        currentPowerAmount += amount;
+
+        if (currentPowerAmount > amountNeededToUsePower)
+            currentPowerAmount = amountNeededToUsePower;
+
+        //Update power display in UI manager
+        UIManager.instance.UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
+    }
+
+    protected virtual void ResetPowerUsage()
+    {
+        currentPowerAmount = 0;
+        UIManager.instance.UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
     }
 }

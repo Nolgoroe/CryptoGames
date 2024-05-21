@@ -5,7 +5,7 @@ using UnityEngine;
 interface ITimer
 {
     void InitTimer();
-    void AddToTime(int timeToAdd);
+    void AddToTime(float timeToAdd);
     void TickTime();
 
 }

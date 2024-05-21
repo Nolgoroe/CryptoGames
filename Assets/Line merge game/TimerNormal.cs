@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimerNormal : MonoBehaviour, ITimer
 {
-    [SerializeField] float maxGameTime;
+    [SerializeField] float maxGameTime = 30;
     [SerializeField] float currentGameTime;
 
     public void InitTimer()
@@ -13,7 +13,7 @@ public class TimerNormal : MonoBehaviour, ITimer
         UIManager.instance.UpdateTimerText(currentGameTime);
     }
 
-    public void AddToTime(int timeToAdd)
+    public void AddToTime(float timeToAdd)
     {
         currentGameTime += timeToAdd;
         UIManager.instance.UpdateTimerText(currentGameTime);

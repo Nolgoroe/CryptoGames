@@ -165,4 +165,6 @@ MonoBehaviour:
   ballIndex: 4
   ballScoreSpawn: 5
   ballScoreMerge: 5
+  ballPowerToAdd: 0.1
+  ballTimeToAdd: 1
   ballOffsetSize: 1.7

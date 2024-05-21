@@ -8,4 +8,9 @@ public class BallDatabaseSO : ScriptableObject
 {
     public Ball[] balls;
     public GameObject[] NonPhysicBalls;
+
+    public Ball ReturnRandomBall()
+    {
+        return balls[Random.Range(0, balls.Length)];
+    }
 }

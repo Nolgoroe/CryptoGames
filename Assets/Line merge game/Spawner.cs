@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class Spawner : MonoBehaviour
 {
@@ -26,9 +28,10 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         if (!GameManager.gameIsRunning) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        //follow mouse on X while clamped to right and left bounds.
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+            //follow mouse on X while clamped to right and left bounds.
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
         Vector3 newPos = new Vector3(mouse.x, transform.position.y, transform.position.z);
         newPos.x = Mathf.Clamp(newPos.x, leftBoundX, rightBoundX);
 

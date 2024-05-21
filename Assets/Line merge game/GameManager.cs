@@ -54,4 +54,8 @@ public class GameManager : MonoBehaviour
     {
         furthestBallIndexReached = index;
     }
+    public void SendAddToTimer(float amount)
+    {
+        timerObject?.AddToTime(amount);
+    }
 }

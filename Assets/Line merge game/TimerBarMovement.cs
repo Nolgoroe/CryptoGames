@@ -5,19 +5,27 @@ using UnityEngine;
 public class TimerBarMovement : MonoBehaviour, ITimer
 {
     [Header("Preset data")]
-    [SerializeField] float delayBetweenMoves;
-    [SerializeField] float amountMoveY;
-    [SerializeField] float moveTime;
+    [SerializeField] float delayBetweenMoves = 3;
+    [SerializeField] float originalAmountMoveY = -1;
+    [SerializeField] float moveTime = 1;
+    [SerializeField] float minHeight = -3.7f;
+    [SerializeField] float maxHeight = 4f;
     [SerializeField] GameOverTrigger gameOverTrigger;
-    [SerializeField] float minHeight;
 
     [Header("Live data")]
     [SerializeField] float currentDelay;
+    [SerializeField] float amountMoveY;
 
+    private void OnValidate()
+    {
+        if(!gameOverTrigger)
+        gameOverTrigger = FindObjectOfType<GameOverTrigger>();
+    }
 
     public void InitTimer()
     {
         currentDelay = delayBetweenMoves;
+        amountMoveY = originalAmountMoveY;
     }
 
     public void TickTime()
@@ -29,27 +37,36 @@ public class TimerBarMovement : MonoBehaviour, ITimer
             currentDelay = delayBetweenMoves;
 
             //Move Game over trigger down
-            TweenGameOverTrigger(-SetAmountTomove());
+
+            TweenGameOverTrigger(SetAmountTomove(amountMoveY));
         }
     }
 
-    public void AddToTime(int timeToAdd)
+    public void AddToTime(float timeToAdd)
     {
-
+        amountMoveY += timeToAdd;
     }
 
-    private float SetAmountTomove()
+    private float SetAmountTomove(float amount)
     {
-        if(gameOverTrigger.transform.position.y - amountMoveY <= minHeight)
+        if(amount < 0 && gameOverTrigger.transform.position.y + amount <= minHeight)
         {
             return gameOverTrigger.transform.position.y - minHeight;
         }
 
-        return amountMoveY;
+        if(amount > 0 && gameOverTrigger.transform.position.y + amount >= maxHeight)
+        {
+            return maxHeight - gameOverTrigger.transform.position.y ;
+        }
+
+        return amount;
     }
     private void TweenGameOverTrigger(float amount)
     {
         float currentY = gameOverTrigger.gameObject.transform.position.y;
         LeanTween.moveY(gameOverTrigger.gameObject, currentY + amount, moveTime);
+
+
+        amountMoveY = originalAmountMoveY;
     }
 }
