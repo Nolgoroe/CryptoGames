@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8f0a94371c17f47822c763c7f4ecb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitIndex: 4
-  fruitScoreSpawn: 5
-  fruitScoreMerge: 5
+  ballIndex: 4
+  ballScoreSpawn: 5
+  ballScoreMerge: 5
+  ballOffsetSize: 1.7

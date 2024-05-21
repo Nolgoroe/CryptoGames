@@ -18,9 +18,9 @@ public class ScoreManager : MonoBehaviour
         currentScore += amount;
         UIManager.instance.UpdateScoreText(currentScore);
     }
-    public void RemoveScore()
+    public void RemoveScore(int amount)
     {
-
+        currentScore -= amount;
+        UIManager.instance.UpdateScoreText(currentScore);
     }
-
 }

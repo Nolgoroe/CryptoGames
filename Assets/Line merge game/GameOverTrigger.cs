@@ -9,7 +9,7 @@ public class GameOverTrigger : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!GameManager.canControlGame) return;
+        if (!GameManager.gameIsRunning) return;
 
         if(collision.gameObject.layer == 6)
         {

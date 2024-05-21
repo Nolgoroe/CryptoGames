@@ -1,77 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static bool canControlGame;
+    public static bool gameIsRunning;
+    public static event Action onGameOver;
+    public static BallDatabaseSO staticBallDatabase;
+    public static int furthestBallIndexReached;
 
-    [SerializeField] Transform leftBound, rightBound;
-    [SerializeField] float boundOffset = 1;
-    [SerializeField] FruitDatabaseSO fruitDatabase;
-    [SerializeField] GameObject currentNonPhysDisplay;
-    [SerializeField] Fruit currentFruit;
+    ITimer timerObject;
 
-    float leftBoundX, rightBoundX;
+    [SerializeField] BallDatabaseSO currentBallDatabase;
 
     private void Awake()
     {
-        canControlGame = true;
+        SetBallDatabase(currentBallDatabase);
+
+        gameIsRunning = true;
         instance = this;
 
-        leftBoundX = leftBound.transform.position.x + boundOffset;
-        rightBoundX = rightBound.transform.position.x - boundOffset;
-    }
-    private void Start()
-    {
-        DecideNextFruit();
+        TryGetTimer();
+        timerObject?.InitTimer();
     }
 
-    void Update()
+    private void TryGetTimer()
     {
-        if (!canControlGame) return;
-
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-        
-        Vector3 newPos = new Vector3(mouse.x, transform.position.y, transform.position.z);
-        newPos.x = Mathf.Clamp(newPos.x, leftBoundX, rightBoundX);
-
-        transform.position = newPos;
-
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            int randomNum = Random.Range(0, fruitDatabase.fruits.Length);
-
-            Destroy(currentNonPhysDisplay.gameObject);
-            Instantiate(currentFruit.gameObject, transform.position, Quaternion.identity);
-            currentFruit = null;
-
-
-            DecideNextFruit();
-        }
+        transform.TryGetComponent<ITimer>(out timerObject);
+    }
+    private void SetBallDatabase(BallDatabaseSO database)
+    {
+        staticBallDatabase = database;
     }
 
-    private void DecideNextFruit()
+    private void Update()
     {
-        int randomNum = Random.Range(0, 2);
+        if (!gameIsRunning) return;
 
-        currentFruit = fruitDatabase.fruits[randomNum];
-        currentNonPhysDisplay = Instantiate(fruitDatabase.NonPhysicFruits[randomNum],transform);
-
-    }
-
-    public FruitDatabaseSO ReturnCurrentFruitDatabase()
-    {
-        return fruitDatabase;
+        timerObject?.TickTime();
     }
 
     public void GameOver()
     {
-        canControlGame = false;
+        gameIsRunning = false;
 
-        Destroy(gameObject);
-        currentFruit = null;
+        onGameOver?.Invoke();
+    }
+
+
+    public void UpdateBallIndexReached(int index)
+    {
+        furthestBallIndexReached = index;
     }
 }
