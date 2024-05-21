@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float ballTimeToAdd;
     [SerializeField] float ballOffsetSize;
     int layerIndex;
+    bool isCombining;
 
     public event Action OnMergeBall;
     private void Awake()
@@ -35,7 +36,7 @@ public class Ball : MonoBehaviour
             collision.gameObject.TryGetComponent<Ball>(out Ball otherBall);
             if (!otherBall) return;
 
-            if (ballIndex == otherBall.ReturnBallIndex())
+            if (ballIndex == otherBall.ReturnBallIndex() && !otherBall.isCombining)
             {
                 //make sure this merge logic happends only once by getting the instance ID of both objects and letting the higher one manage the merge.
                 int thisID = gameObject.GetInstanceID();
@@ -55,6 +56,8 @@ public class Ball : MonoBehaviour
 
                         if (newBall)
                         {
+                            SetIsCombining();
+                            otherBall.SetIsCombining();
                             //basic actions that need to happen always are - destroy current and other ball and spawn the merged ball
                             Instantiate(newBall.gameObject, MidPos, Quaternion.identity);
 
@@ -81,6 +84,10 @@ public class Ball : MonoBehaviour
         GameManager.instance.SendAddToTimer(ballTimeToAdd);
     }
 
+    public void SetIsCombining()
+    {
+        isCombining = true;
+    }
     #region Public Returns
     public int ReturnBallIndex()
     {
