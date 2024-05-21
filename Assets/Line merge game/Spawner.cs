@@ -76,7 +76,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnBallOnStart()
     {
-        int randomNum = Random.Range(0, GameManager.furthestBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
+        int randomNum = Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
         currentPhysBall = GameManager.staticBallDatabase.balls[randomNum];
         currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[randomNum], transform);
 
@@ -98,7 +98,7 @@ public class Spawner : MonoBehaviour
 
     private void DecideNextBall()
     {
-        int randomNum = Random.Range(0, GameManager.furthestBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
+        int randomNum = Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
         nextPhysBall = GameManager.staticBallDatabase.balls[randomNum];
 
         //set next ball in UI - send for UI Manager to take care of it.

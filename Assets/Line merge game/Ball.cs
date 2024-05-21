@@ -45,7 +45,7 @@ public class Ball : MonoBehaviour
                 {
                     if (ballIndex + 1 < GameManager.staticBallDatabase.balls.Length)
                     {
-                        if(ballIndex + 1 > GameManager.furthestBallIndexReached && ballIndex + 1 < GameManager.staticBallDatabase.balls.Length - 1)
+                        if(ballIndex + 1 > GameManager.maxBallIndexReached && ballIndex + 1 < GameManager.staticBallDatabase.balls.Length - 1)
                         {
                             GameManager.instance.UpdateBallIndexReached(ballIndex + 1); //does this break single responsibility? FLAG
                         }

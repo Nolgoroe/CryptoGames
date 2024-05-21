@@ -9,8 +9,8 @@ public class BallDatabaseSO : ScriptableObject
     public Ball[] balls;
     public GameObject[] NonPhysicBalls;
 
-    public Ball ReturnRandomBall()
+    public Ball ReturnRandomBallInIndex(int maxIndex)
     {
-        return balls[Random.Range(0, balls.Length)];
+        return balls[Random.Range(0, maxIndex + 1)];
     }
 }

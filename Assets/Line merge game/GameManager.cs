@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static bool gameIsRunning;
     public static event Action onGameOver;
     public static BallDatabaseSO staticBallDatabase;
-    public static int furthestBallIndexReached;
+    public static int maxBallIndexReached;
 
     ITimer timerObject;
 
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBallIndexReached(int index)
     {
-        furthestBallIndexReached = index;
+        maxBallIndexReached = index;
     }
     public void SendAddToTimer(float amount)
     {
