@@ -14,16 +14,25 @@ public class GameManager : MonoBehaviour
     ITimer timerObject;
 
     [SerializeField] BallDatabaseSO currentBallDatabase;
+    [SerializeField] Transform spawnArea;
 
+    //Temp
+    public int startDelay = 5;
     private void Awake()
     {
         SetBallDatabase(currentBallDatabase);
 
-        gameIsRunning = true;
+        StartCoroutine(DelayBeforeStart());
+
         instance = this;
 
         TryGetTimer();
         timerObject?.InitTimer();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(SpawnOnStart());
     }
 
     private void TryGetTimer()
@@ -56,6 +65,39 @@ public class GameManager : MonoBehaviour
     }
     public void SendAddToTimer(float amount)
     {
+        //temp
+        if (!gameIsRunning) return;
+
         timerObject?.AddToTime(amount);
     }
+
+    private IEnumerator SpawnOnStart()
+    {
+        int randomNum = UnityEngine.Random.Range(15, 25);
+        Vector3 center = spawnArea.transform.position;
+
+        for (int i = 0; i < randomNum; i++)
+        {
+            int randomBallIndex = UnityEngine.Random.Range(0, currentBallDatabase.balls.Length);
+
+            Ball toSpawn = staticBallDatabase.ReturnRandomBallInIndex(randomBallIndex);
+            float randomX = UnityEngine.Random.Range((-spawnArea.localScale.x / 2),
+                (spawnArea.localScale.x / 2));
+
+            Vector3 newPos = center + new Vector3(randomX, 0, 0);
+
+            Instantiate(toSpawn, newPos, Quaternion.identity);
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    //Temp
+
+    private IEnumerator DelayBeforeStart()
+    {
+        yield return new WaitForSeconds(startDelay);
+        gameIsRunning = true;
+    }
+
 }

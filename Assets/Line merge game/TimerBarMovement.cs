@@ -5,7 +5,7 @@ using UnityEngine;
 public class TimerBarMovement : MonoBehaviour, ITimer
 {
     [Header("Preset data")]
-    [SerializeField] float delayBetweenMoves = 3;
+    [SerializeField] float delayBetweenMoves = 2.5f;
     [SerializeField] float originalAmountMoveY = -1;
     [SerializeField] float moveTime = 1;
     [SerializeField] float minHeight = -3.7f;
@@ -64,7 +64,7 @@ public class TimerBarMovement : MonoBehaviour, ITimer
     private void TweenGameOverTrigger(float amount)
     {
         float currentY = gameOverTrigger.gameObject.transform.position.y;
-        LeanTween.moveY(gameOverTrigger.gameObject, currentY + amount, moveTime);
+        LeanTween.moveY(gameOverTrigger.gameObject, currentY + amount, moveTime).setEaseOutCubic();
 
 
         amountMoveY = originalAmountMoveY;

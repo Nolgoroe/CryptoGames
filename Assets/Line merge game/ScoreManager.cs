@@ -14,7 +14,10 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void AddScore(int amount)
-    {
+    {        
+        //temp
+        if (!GameManager.gameIsRunning) return;
+
         currentScore += amount;
         UIManager.instance.UpdateScoreText(currentScore);
     }

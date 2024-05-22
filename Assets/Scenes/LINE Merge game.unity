@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTimer: 0
-  timeToLose: 3
+  timeToLose: 5
   invincible: 0
 --- !u!212 &171306499
 SpriteRenderer:
@@ -389,7 +389,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.28235295}
@@ -438,6 +438,7 @@ MonoBehaviour:
   currentNonPhysDisplay: {fileID: 0}
   currentPhysBall: {fileID: 0}
   nextPhysBall: {fileID: 0}
+  specificBall: 5
 --- !u!212 &260737039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -589,7 +590,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 19.107056, y: -91}
+  m_AnchoredPosition: {x: 19.106934, y: -91}
   m_SizeDelta: {x: 178.546, y: 97.109}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &532142660
@@ -621,8 +622,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -755,8 +756,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -889,8 +890,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1257,6 +1258,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballAmountList: []
+  timeBeforeResetCombo: 4
+  bonusThreshold: 5
+  highestComboReached: 0
+  currentComboReached: 0
+  amountOfBonuses: 0
+  currentTimeResetCombo: 0
+  ComboDetected: 0
+  timeToAddOnCombo: 3
 --- !u!4 &1298814523
 Transform:
   m_ObjectHideFlags: 0
@@ -1682,8 +1691,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1797,6 +1806,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBallDatabase: {fileID: 11400000, guid: de0958c1f1fea4e49b148f2b399763b0,
     type: 2}
+  spawnArea: {fileID: 171306497}
+  startDelay: 5
 --- !u!114 &1636709598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,7 +1820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9877a04e9a37a5f4d9883a080fc33556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxGameTime: 10000
+  maxGameTime: 60
   currentGameTime: 0
 --- !u!1 &1660727908
 GameObject:
@@ -2004,9 +2015,9 @@ MonoBehaviour:
   spawnArea: {fileID: 171306497}
   gameOverTrigger: {fileID: 171306498}
   spawnAreaOffset: 0
-  timeBetweenSpawns: 0.1
-  minAmount: 15
-  maxAmount: 20
+  timeBetweenSpawns: 0.03
+  minAmount: 130
+  maxAmount: 160
 --- !u!1 &1923931565
 GameObject:
   m_ObjectHideFlags: 0

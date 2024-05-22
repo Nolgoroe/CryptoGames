@@ -13,6 +13,21 @@ public class GeneralStatsManager : MonoBehaviour
     public static GeneralStatsManager instance;
     [SerializeField] List<BallAmountList> ballAmountList = new List<BallAmountList>();
 
+    [Header("Combo Detection Stats")]
+    [SerializeField] float timeBeforeResetCombo;
+    [SerializeField] int bonusThreshold;
+
+    [Header("live Combo Data")]
+    [SerializeField] int highestComboReached;
+    [SerializeField] int currentComboReached;
+    [SerializeField] int amountOfBonuses;
+    [SerializeField] float currentTimeResetCombo;
+    [SerializeField] bool ComboDetected;
+
+    //Temp
+    [Header("Temp data")]
+    public float timeToAddOnCombo;
+
     private void Awake()
     {
         instance = this;
@@ -23,6 +38,21 @@ public class GeneralStatsManager : MonoBehaviour
         CreateBallAmountList();
 
         StartCoroutine(CleanAction());
+
+        ResetChainTimer();
+    }
+
+    private void Update()
+    {
+        if(ComboDetected)
+        {
+            currentTimeResetCombo -= Time.deltaTime;
+
+            if(currentTimeResetCombo < 0)
+            {
+                ResetChainTimer();
+            }
+        }
     }
 
     private void CreateBallAmountList()
@@ -36,11 +66,6 @@ public class GeneralStatsManager : MonoBehaviour
         }
     }
 
-    public void AddToBallAmountList(Ball ball)
-    {
-        ballAmountList[ball.ReturnBallIndex()].amountOfBall++;
-        ballAmountList[ball.ReturnBallIndex()].ballList.Add(ball);
-    }
     private IEnumerator CleanAction()
     {
         yield return new WaitForSeconds(1);
@@ -60,6 +85,45 @@ public class GeneralStatsManager : MonoBehaviour
         StartCoroutine(CleanAction()); //FLAG - I don't know if this endless loop is a great idea
     }
 
+    private void ResetChainTimer()
+    {
+        ComboDetected = false;
+        currentTimeResetCombo = timeBeforeResetCombo;
+
+        if(currentComboReached > highestComboReached)
+        {
+            highestComboReached = currentComboReached;
+        }
+
+        Debug.Log("Reset at: " + currentComboReached);
+        currentComboReached = 0;
+
+    }
+    public void AddToChainCount()
+    {
+        //temp
+        if (!GameManager.gameIsRunning) return;
+
+        currentComboReached++;
+            
+        if (currentComboReached % bonusThreshold == 0)
+        {
+            //add time to player
+            GameManager.instance.SendAddToTimer(timeToAddOnCombo); // Flag - I do not like that this is here.
+            amountOfBonuses++;
+        }
+
+        currentTimeResetCombo = timeBeforeResetCombo;
+
+        ComboDetected = true;
+    }
+
+    public void AddToBallAmountList(Ball ball)
+    {
+        ballAmountList[ball.ReturnBallIndex()].amountOfBall++;
+        ballAmountList[ball.ReturnBallIndex()].ballList.Add(ball);
+    }
+
     #region Public Return Data
     public List<List<Ball>> returnMostCommonBallLists()
     {
@@ -75,5 +139,6 @@ public class GeneralStatsManager : MonoBehaviour
 
         return ballLists;
     }
+
     #endregion
 }

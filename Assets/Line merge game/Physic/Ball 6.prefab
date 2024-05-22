@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6696721441626751019}
   - component: {fileID: -5712973362545050883}
   m_Layer: 6
-  m_Name: Black
+  m_Name: Ball 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 6886176019901636531}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4dc6b1d1f0ba38447b58d941a34efae1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -163,8 +163,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballIndex: 5
-  ballScoreSpawn: 6
-  ballScoreMerge: 6
-  ballPowerToAdd: 0.1
+  ballOffsetSize: 1.4
+  startMass: 75
+  stationaryMassPercentage: 0.25
+  timeToReduceMass: 4
+  ballScoreSpawn: 21
+  ballScoreMerge: 15
   ballTimeToAdd: 1
-  ballOffsetSize: 2.5
+  ballPowerToAdd: 0.1
+  tempLayer:
+    serializedVersion: 2
+    m_Bits: 64

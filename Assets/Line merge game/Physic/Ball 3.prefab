@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8493912020361419303}
   - component: {fileID: -904394378433852525}
   m_Layer: 6
-  m_Name: Pink
+  m_Name: Ball 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,7 +100,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1.15
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 8962211896355919250}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4dc6b1d1f0ba38447b58d941a34efae1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -163,8 +163,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballIndex: 2
-  ballScoreSpawn: 3
+  ballOffsetSize: 1.1
+  startMass: 90
+  stationaryMassPercentage: 0.25
+  timeToReduceMass: 4
+  ballScoreSpawn: 6
   ballScoreMerge: 3
-  ballPowerToAdd: 0.1
   ballTimeToAdd: 1
-  ballOffsetSize: 1.35
+  ballPowerToAdd: 0.1
+  tempLayer:
+    serializedVersion: 2
+    m_Bits: 64

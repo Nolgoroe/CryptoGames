@@ -27,6 +27,9 @@ public class PowerupManager : MonoBehaviour
 
     public void UpdateCurrentPowerAmount(float amount)
     {
+        //temp
+        if (!GameManager.gameIsRunning) return;
+
         currentPowerupAllowed?.AddToPower(amount);
     }
 }

@@ -18,6 +18,8 @@ public class Spawner : MonoBehaviour
 
     float leftBoundX, rightBoundX;
 
+    public int specificBall;
+
     private void Start()
     {
         GameManager.onGameOver += ResetSpawnerData;
