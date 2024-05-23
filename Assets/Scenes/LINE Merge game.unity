@@ -346,8 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07b1d8a8674cf7408d1142eba80746e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTimer: 0
   timeToLose: 5
+  currentTimer: 0
   invincible: 0
 --- !u!212 &171306499
 SpriteRenderer:
@@ -536,11 +536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23315ee3e1de12b45bb305396045fc23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 547915433}
-  nextBallDisplay: {fileID: 1353106804}
-  gameTimerText: {fileID: 1604237519}
   powerupImage: {fileID: 1606871}
   powerupButton: {fileID: 1606873}
+  gameTimerText: {fileID: 1604237519}
+  nextBallDisplay: {fileID: 1353106804}
+  scoreText: {fileID: 547915433}
 --- !u!4 &406523012
 Transform:
   m_ObjectHideFlags: 0
@@ -885,7 +885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c80604541069a4588c89ca9e3c8c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chainManager: {fileID: 565781578}
   bonusThreshold: 5
   timeToAddOnCombo: 3
 --- !u!1 &875615748
@@ -1321,7 +1320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce650503ef4022d4da87cf671d6f8297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballAmountList: []
   bonusThreshold: 5
   highestComboReached: 0
   amountOfBonusesAquired: 0
@@ -2025,6 +2023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnArea: {fileID: 171306497}
+  gameManager: {fileID: 0}
   minBalls: 15
   maxBalls: 25
   spawnBallDelay: 0.05
@@ -2213,17 +2212,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1805926806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f6c82b2a18b998449502d380be405ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 70a26c59c15aed2408c55e7765d0e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountNeededToUsePower: 1
   currentPowerAmount: 0
-  spawnArea: {fileID: 171306497}
-  gameOverTrigger: {fileID: 171306498}
-  spawnAreaOffset: 0
-  timeBetweenSpawns: 0.03
-  minAmount: 130
-  maxAmount: 160
 --- !u!1 &1923931565
 GameObject:
   m_ObjectHideFlags: 0

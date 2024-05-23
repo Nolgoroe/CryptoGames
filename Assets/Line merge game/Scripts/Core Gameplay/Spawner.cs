@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.gameIsRunning) return;
+        if (!GameManager.gameIsRunning || !GameManager.gameIsControllable) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
             //follow mouse on X while clamped to right and left bounds.

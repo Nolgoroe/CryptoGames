@@ -7,13 +7,13 @@ public class BombPower : PowerupBase
     {
         // find most of same color balls in world.
 
-        List<List<BallBase>> relaventBallLists = GeneralStatsManager.instance.returnMostCommonBallLists();
+        List<BallBase> relaventBallLists = GeneralStatsManager.instance.ReturnSpecificBallList(0);
         if (relaventBallLists.Count <= 0) return;
 
         int randomNum = Random.Range(0, relaventBallLists.Count);
 
 
-        foreach (Ball ball in relaventBallLists[randomNum])
+        foreach (BallBase ball in relaventBallLists)
         {
             if (ball)
                 Destroy(ball.gameObject);

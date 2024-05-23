@@ -90,7 +90,7 @@ public class GeneralStatsManager : MonoBehaviour
 
 
     #region Public Return Data
-    public List<List<BallBase>> returnMostCommonBallLists()
+    public List<List<BallBase>> ReturnMostCommonBallLists()
     {
         List<List<BallBase>> ballLists = new List<List<BallBase>>();
 
@@ -103,6 +103,10 @@ public class GeneralStatsManager : MonoBehaviour
         }
 
         return ballLists;
+    }
+    public List<BallBase> ReturnSpecificBallList(int index)
+    {
+        return ballAmountList[index].ballList;
     }
 
     #endregion

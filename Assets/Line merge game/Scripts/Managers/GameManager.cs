@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public static bool gameIsRunning;
+    public static bool gameIsControllable;
     public static event Action onGameOver;
     public static BallDatabaseSO staticBallDatabase;
     public static int maxBallIndexReached;
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameIsRunning = false;
+        gameIsControllable = false;
 
         onGameOver?.Invoke();
     }
@@ -88,7 +90,10 @@ public class GameManager : MonoBehaviour
         preludeActions.Remove(toRemove);
     }
 
-
+    public void SetGameIsControllable(bool isControllable)
+    {
+        gameIsControllable = isControllable;
+    }
 
 
 
@@ -97,6 +102,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(startDelay);
         gameIsRunning = true;
+        gameIsControllable = true;
     }
 
 }
