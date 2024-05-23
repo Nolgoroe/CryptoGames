@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static BallDatabaseSO staticBallDatabase;
     public static int maxBallIndexReached;
 
+    [SerializeField] int limitMaxBall;
+
     [Header("Needed References")]
     [SerializeField] BallDatabaseSO currentBallDatabase;
 
@@ -70,6 +72,11 @@ public class GameManager : MonoBehaviour
     public void UpdateBallIndexReached(int index)
     {
         maxBallIndexReached = index;
+
+        if(maxBallIndexReached > limitMaxBall)
+        {
+            maxBallIndexReached = limitMaxBall;
+        }
     }
 
     public void SendAddToTimer(float amount)

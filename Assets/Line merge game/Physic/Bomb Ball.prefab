@@ -175,6 +175,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   radius: 5
-  bombPower: 400
+  bombPower: 500
   isExploding: 0
   timeToExplode: 3
