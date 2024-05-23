@@ -1,19 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallsOnPrelude : MonoBehaviour, IPrelude
 {
     [Header("Needed References")]
     [SerializeField] Transform spawnArea;
+    [SerializeField] GameManager gameManager;
 
     [Header("Spawn Parameters")]
     [SerializeField] int minBalls = 15;
     [SerializeField] int maxBalls = 25;
     [SerializeField] float spawnBallDelay = 0.05f;
 
-    private void Start()
+    private void Awake()
     {
+        gameManager = GetComponent<GameManager>(); //forces aLL preludes to be on game manager.. bad? FLAG
         AddToList();
     }
 
@@ -48,12 +49,14 @@ public class BallsOnPrelude : MonoBehaviour, IPrelude
 
     public void AddToList()
     {
-        GameManager.instance.AddToPreludeAcitons(this);
+        if (gameManager)
+            gameManager.AddToPreludeAcitons(this);
     }
 
     public void RemoveFromList()
     {
-        GameManager.instance.RemoveFromPreludeAcitons(this);
+        if (gameManager)
+            gameManager.RemoveFromPreludeAcitons(this);
     }
 
     public void DoAction()
