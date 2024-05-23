@@ -167,10 +167,7 @@ MonoBehaviour:
   startMass: 70
   stationaryMassPercentage: 0.25
   timeToReduceMass: 4
+  isBallMergable: 1
   ballScoreSpawn: 28
   ballScoreMerge: 21
-  ballTimeToAdd: 1
   ballPowerToAdd: 0.1
-  tempLayer:
-    serializedVersion: 2
-    m_Bits: 64

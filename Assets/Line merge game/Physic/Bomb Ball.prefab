@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6688998292057273839}
   - component: {fileID: 7963207144471617610}
   - component: {fileID: -6696721441626751019}
-  - component: {fileID: -5712973362545050883}
+  - component: {fileID: -1012082436090356303}
   m_Layer: 6
-  m_Name: Ball 6
+  m_Name: Bomb Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,7 +150,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-5712973362545050883
+--- !u!114 &-1012082436090356303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,15 +159,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6886176019901636531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb8f0a94371c17f47822c763c7f4ecb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a149f1d602568e438c8af3f7f612172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballIndex: 5
-  ballOffsetSize: 1.4
-  startMass: 75
+  ballIndex: 11
+  ballOffsetSize: 1.1
+  startMass: 350
   stationaryMassPercentage: 0.25
   timeToReduceMass: 4
-  isBallMergable: 1
-  ballScoreSpawn: 21
-  ballScoreMerge: 15
-  ballPowerToAdd: 0.1
+  isBallMergable: 0
+  ballScoreSpawn: 10
+  ballScoreMerge: 0
+  ballPowerToAdd: 0
+  layerToDetect:
+    serializedVersion: 2
+    m_Bits: 64
+  radius: 5
+  bombPower: 400
+  isExploding: 0
+  timeToExplode: 3

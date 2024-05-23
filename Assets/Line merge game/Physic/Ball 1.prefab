@@ -162,15 +162,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8f0a94371c17f47822c763c7f4ecb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mergeManager: {fileID: 0}
   ballIndex: 0
   ballOffsetSize: 1.05
   startMass: 100
   stationaryMassPercentage: 0.25
   timeToReduceMass: 4
+  isBallMergable: 1
   ballScoreSpawn: 1
   ballScoreMerge: 0
-  ballTimeToAdd: 1
   ballPowerToAdd: 0.1
-  tempLayer:
-    serializedVersion: 2
-    m_Bits: 64
