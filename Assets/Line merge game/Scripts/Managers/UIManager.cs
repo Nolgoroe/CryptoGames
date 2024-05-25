@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
     [Header("Score")]
     [SerializeField] TMP_Text scoreText;
 
+    [Header("Game over trigger")]
+    [SerializeField] TMP_Text gameOverTriggerText;
+
 
     private void Awake()
     {
@@ -47,6 +50,12 @@ public class UIManager : MonoBehaviour
     {
         int fullNum = Mathf.RoundToInt(time);
         gameTimerText.text = fullNum.ToString();
+    }
+    public void UpdateGameOverTimerTextText(bool active, float time)
+    {
+        gameOverTriggerText.gameObject.SetActive(active);
+        int fullNum = Mathf.RoundToInt(time);
+        gameOverTriggerText.text = fullNum.ToString();
     }
 
     public void UpdatePowerupImage(float current, float max)

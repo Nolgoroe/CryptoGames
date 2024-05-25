@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
             //follow mouse on X while clamped to right and left bounds.
-            Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+        Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
         Vector3 newPos = new Vector3(mouse.x, transform.position.y, transform.position.z);
         newPos.x = Mathf.Clamp(newPos.x, leftBoundX, rightBoundX);
 
@@ -45,8 +45,6 @@ public class Spawner : MonoBehaviour
         // release ball
         if (Input.GetMouseButtonDown(0))
         {
-            int randomNum = Random.Range(0, GameManager.staticBallDatabase.balls.Length);
-
             Destroy(currentNonPhysDisplay.gameObject);
             BallBase go = Instantiate(currentPhysBall, transform.position, Quaternion.identity);
 
