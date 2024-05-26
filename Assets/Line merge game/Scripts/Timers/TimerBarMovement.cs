@@ -9,7 +9,7 @@ public class TimerBarMovement : MonoBehaviour, ITimer
     [SerializeField] float originalAmountMoveY = -1;
     [SerializeField] float moveTime = 1;
     [SerializeField] float minHeight = -3.7f;
-    [SerializeField] float maxHeight = 4f;
+    [SerializeField] float maxHeight = 7f;
     [SerializeField] GameOverTrigger gameOverTrigger;
 
     [Header("Live data")]
