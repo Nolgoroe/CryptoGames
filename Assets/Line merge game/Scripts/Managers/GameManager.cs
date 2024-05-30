@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(DelayBeforeStart()); //FLAG temp - think of better way to wait for all prelude to finish.. maybe remove from list when done and then check when list is empty after every remove?
+
+        //flag - temp
+        maxBallIndexReached = 4;
     }
     private void TryGetTimer()
     {

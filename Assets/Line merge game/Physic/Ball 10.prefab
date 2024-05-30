@@ -169,5 +169,5 @@ MonoBehaviour:
   timeToReduceMass: 4
   isBallMergable: 1
   ballScoreSpawn: 0
-  ballScoreMerge: 45
+  ballScoreMerge: 55
   ballPowerToAdd: 0.1

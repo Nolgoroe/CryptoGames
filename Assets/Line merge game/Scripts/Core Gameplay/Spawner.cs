@@ -34,6 +34,7 @@ public class Spawner : MonoBehaviour
         SpawnBallOnStart();
 
 
+
         ////flag - temp
         //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
     }
