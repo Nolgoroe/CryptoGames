@@ -33,6 +33,10 @@ public class TimeOnComboChain : MonoBehaviour, IChainAction
         if (currentComboReached % bonusThreshold == 0)
         {
             GameManager.instance.SendAddToTimer(timeToAddOnCombo);
+
+            ////flag - temp
+            //GameManager.instance.maxballs++;
+            //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
         }
     }
 }

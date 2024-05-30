@@ -12,8 +12,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] Transform leftBound;
     [SerializeField] Transform rightBound;
     [SerializeField] float boundOffset = 1; //FLAG - there has to be a better way - need to think of a dynamic and scalable solution.
+    [SerializeField] float delayBetweenDrops = 1;
 
     [Header("Live data")]
+    [SerializeField] float currentDelayBetweenDrops = 0;
     [SerializeField] GameObject currentNonPhysDisplay;
     [SerializeField] BallBase currentPhysBall;
     [SerializeField] BallBase nextPhysBall;
@@ -25,9 +27,15 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        currentDelayBetweenDrops = 0;
+
         GameManager.onGameOver += ResetSpawnerData;
 
         SpawnBallOnStart();
+
+
+        ////flag - temp
+        //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
     }
 
     private void Update()
@@ -42,9 +50,13 @@ public class Spawner : MonoBehaviour
 
         transform.position = newPos;
 
+        CountDropCooldown();
+
         // release ball
         if (Input.GetMouseButtonDown(0))
         {
+            if (currentDelayBetweenDrops > 0) return;
+
             Destroy(currentNonPhysDisplay.gameObject);
             BallBase go = Instantiate(currentPhysBall, transform.position, Quaternion.identity);
 
@@ -52,12 +64,35 @@ public class Spawner : MonoBehaviour
 
 
             DisplayNextBall();
+
+            ResetDropCooldown();
+
+            //flag - temp
+            //GameManager.instance.maxballs--;
+
+            //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
+            //if (GameManager.instance.maxballs <= 0)
+            //{
+            //    GameManager.instance.GameOver();
+            //}
         }
 
         if(Input.GetMouseButtonDown(1))
         {
             //Swap currentPhysBall to nextPhysBall
             SwapBalls();
+        }
+    }
+    
+    private void ResetDropCooldown()
+    {
+        currentDelayBetweenDrops = delayBetweenDrops;
+    }
+    private void CountDropCooldown()
+    {
+        if (currentDelayBetweenDrops > 0)
+        {
+            currentDelayBetweenDrops -= Time.deltaTime;
         }
     }
 

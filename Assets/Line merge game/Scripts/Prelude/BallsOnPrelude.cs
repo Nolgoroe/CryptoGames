@@ -30,7 +30,7 @@ public class BallsOnPrelude : MonoBehaviour, IPrelude
 
         for (int i = 0; i < randomNum; i++)
         {
-            int randomBallIndex = UnityEngine.Random.Range(0, 6);
+            int randomBallIndex = UnityEngine.Random.Range(0, 0);
 
             BallBase toSpawn = GameManager.staticBallDatabase.ReturnRandomBallInIndex(randomBallIndex);
             float randomX = UnityEngine.Random.Range((-spawnArea.localScale.x / 2),

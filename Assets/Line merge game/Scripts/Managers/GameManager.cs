@@ -22,8 +22,12 @@ public class GameManager : MonoBehaviour
 
     //Temp
     public int startDelay = 5;
+    //public int maxballs;
+
     private void Awake()
     {
+        UnityEngine.Random.InitState(42);
+
         SetBallDatabase(currentBallDatabase);
 
 

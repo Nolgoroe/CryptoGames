@@ -163,11 +163,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballIndex: 2
-  ballOffsetSize: 1.1
+  ballOffsetSize: 1.3
   startMass: 90
-  stationaryMassPercentage: 0.25
+  stationaryMassPercentage: 0.75
   timeToReduceMass: 4
   isBallMergable: 1
-  ballScoreSpawn: 6
+  ballScoreSpawn: 0
   ballScoreMerge: 3
   ballPowerToAdd: 0.1

@@ -165,9 +165,9 @@ MonoBehaviour:
   ballIndex: 10
   ballOffsetSize: 2.7
   startMass: 50
-  stationaryMassPercentage: 0.25
+  stationaryMassPercentage: 0.75
   timeToReduceMass: 4
   isBallMergable: 1
-  ballScoreSpawn: 66
+  ballScoreSpawn: 0
   ballScoreMerge: 55
   ballPowerToAdd: 0.1

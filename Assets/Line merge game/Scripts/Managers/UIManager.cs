@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     [Header("Timers")]
     [SerializeField] TMP_Text gameTimerText;
 
+    [Header("Balls left counter")]
+    [SerializeField] TMP_Text ballsLeftText;
+
     [Header("Balls")]
     [SerializeField] Image nextBallDisplay;
 
@@ -50,6 +53,10 @@ public class UIManager : MonoBehaviour
     {
         int fullNum = Mathf.RoundToInt(time);
         gameTimerText.text = fullNum.ToString();
+    }
+    public void UpdateBallsLeftText(int amount)
+    {
+        ballsLeftText.text = amount.ToString();
     }
     public void UpdateGameOverTimerTextText(bool active, float time)
     {
