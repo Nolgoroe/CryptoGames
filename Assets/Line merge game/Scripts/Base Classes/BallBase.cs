@@ -23,7 +23,10 @@ abstract public class BallBase : MonoBehaviour
     [SerializeField] protected float ballPowerToAdd = 0;
 
     int layerIndex;
-    Rigidbody2D rb;
+
+    //temp serializable - Flag
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] Collider2D col;
 
     //This might be a problem - violates the Liskov Sub priciple?
     bool isCombining; //should this be here even though not all balls that inherit this will be able to combine?? FLAG
@@ -31,9 +34,16 @@ abstract public class BallBase : MonoBehaviour
 
 
 
+    private void OnValidate()
+    {
+        if(col == null)
+            col = GetComponent<Collider2D>();
+
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
         StationaryMass = startMass * stationaryMassPercentage;
 
         layerIndex = gameObject.layer;
@@ -78,7 +88,6 @@ abstract public class BallBase : MonoBehaviour
     protected void Start()
     {
         rb.mass = startMass;
-
         ReduceMass();
     }
 
@@ -106,6 +115,8 @@ abstract public class BallBase : MonoBehaviour
     }
     public float ReturnOffsetSize()
     {
+        ballOffsetSize = transform.localScale.x / 2;
+
         return ballOffsetSize;
     }
     #endregion

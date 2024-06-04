@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6696721441626751019}
   - component: {fileID: -5712973362545050883}
   m_Layer: 6
-  m_Name: Ball 6
+  m_Name: Ball 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.45, y: 2.45, z: 2.45}
+  m_LocalScale: {x: 6.1000004, y: 6.1000004, z: 6.1000004}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.1882353, g: 0.7372549, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -162,12 +162,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8f0a94371c17f47822c763c7f4ecb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballIndex: 5
-  ballOffsetSize: 1.7
-  startMass: 75
-  stationaryMassPercentage: 0.75
+  ballIndex: 10
+  ballOffsetSize: 0
+  startMass: 25
+  stationaryMassPercentage: 1.25
   timeToReduceMass: 4
   isBallMergable: 1
   ballScoreSpawn: 0
-  ballScoreMerge: 21
-  ballPowerToAdd: 0.1
+  ballScoreMerge: 20470
+  ballPowerToAdd: 1
+  rb: {fileID: 0}
+  col: {fileID: -6696721441626751019}

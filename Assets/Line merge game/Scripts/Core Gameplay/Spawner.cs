@@ -11,7 +11,8 @@ public class Spawner : MonoBehaviour
     [Header("Preset data")]
     [SerializeField] Transform leftBound;
     [SerializeField] Transform rightBound;
-    [SerializeField] float boundOffset = 1; //FLAG - there has to be a better way - need to think of a dynamic and scalable solution.
+    [SerializeField] float ballBoundOffset = 1;
+    [SerializeField] float constBoundOffset = 0.7f;
     [SerializeField] float delayBetweenDrops = 1;
 
     [Header("Live data")]
@@ -44,17 +45,24 @@ public class Spawner : MonoBehaviour
         if (!GameManager.gameIsRunning || !GameManager.gameIsControllable) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
-            //follow mouse on X while clamped to right and left bounds.
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-        Vector3 newPos = new Vector3(mouse.x, transform.position.y, transform.position.z);
-        newPos.x = Mathf.Clamp(newPos.x, leftBoundX, rightBoundX);
-
-        transform.position = newPos;
-
         CountDropCooldown();
 
-        // release ball
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.touchCount <= 0) return;
+
+        Touch touch = Input.GetTouch(0);
+
+        if(touch.phase == TouchPhase.Began)
+        {
+            FollowMouse();
+        }
+
+        if(touch.phase == TouchPhase.Moved)
+        {
+            FollowMouse();
+        }
+
+        if(touch.phase == TouchPhase.Ended)
         {
             if (currentDelayBetweenDrops > 0) return;
 
@@ -78,13 +86,23 @@ public class Spawner : MonoBehaviour
             //}
         }
 
-        if(Input.GetMouseButtonDown(1))
-        {
-            //Swap currentPhysBall to nextPhysBall
-            SwapBalls();
-        }
+        //if(Input.GetMouseButtonDown(1))
+        //{
+        //    //Swap currentPhysBall to nextPhysBall
+        //    //SwapBalls();
+        //}
     }
     
+    private void FollowMouse()
+    {
+        //follow mouse on X while clamped to right and left bounds.
+        Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+        Vector3 newPos = new Vector3(mouse.x, transform.position.y, transform.position.z);
+        newPos.x = Mathf.Clamp(newPos.x, leftBoundX, rightBoundX);
+
+        transform.position = newPos;
+
+    }
     private void ResetDropCooldown()
     {
         currentDelayBetweenDrops = delayBetweenDrops;
@@ -148,9 +166,9 @@ public class Spawner : MonoBehaviour
     {
         // balls change size - to prevent a ball from clipping into a boundry, we just change the offset.
         // The offset is from the side boundries - the bigger the ball, the bigger the offset and vice versa.
-        boundOffset = ballData.ReturnOffsetSize();
-        leftBoundX = leftBound.transform.position.x + boundOffset;
-        rightBoundX = rightBound.transform.position.x - boundOffset;
+        ballBoundOffset = ballData.ReturnOffsetSize();
+        leftBoundX = leftBound.transform.position.x + constBoundOffset + ballBoundOffset;
+        rightBoundX = rightBound.transform.position.x - constBoundOffset - ballBoundOffset;
     }
 
     private void ResetSpawnerData()
