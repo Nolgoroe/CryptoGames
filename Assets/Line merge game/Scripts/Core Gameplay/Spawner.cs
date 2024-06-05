@@ -28,6 +28,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        UnityEngine.Random.InitState(42);
         currentDelayBetweenDrops = 0;
 
         GameManager.onGameOver += ResetSpawnerData;
