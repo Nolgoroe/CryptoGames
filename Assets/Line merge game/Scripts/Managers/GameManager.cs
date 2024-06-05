@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         UnityEngine.Random.InitState(42);
+        Application.targetFrameRate = 60;
 
         SetBallDatabase(currentBallDatabase);
 
