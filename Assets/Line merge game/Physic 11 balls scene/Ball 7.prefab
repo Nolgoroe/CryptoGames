@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.9999998, y: 2.9999998, z: 2.9999998}
+  m_LocalScale: {x: 2.85, y: 2.85, z: 2.85}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -171,3 +171,5 @@ MonoBehaviour:
   ballScoreSpawn: 0
   ballScoreMerge: 1270
   ballPowerToAdd: 0.55
+  rb: {fileID: 0}
+  col: {fileID: -6696721441626751019}
