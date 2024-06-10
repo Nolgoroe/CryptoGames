@@ -36,9 +36,7 @@ public class FrenzyPower : PowerupBase
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
 
-        ResetPowerUsage();
-
-        gameOverTrigger.SetInvincibility(false);
+        localResetData();
     }
 
 
@@ -47,4 +45,10 @@ public class FrenzyPower : PowerupBase
         StartCoroutine(FrenzySpawn());
     }
 
+    protected override void localResetData()
+    {
+        ResetPowerUsage();
+
+        gameOverTrigger.SetInvincibility(false);
+    }
 }

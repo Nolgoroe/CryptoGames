@@ -171,9 +171,11 @@ MonoBehaviour:
   ballScoreSpawn: 10
   ballScoreMerge: 0
   ballPowerToAdd: 0
+  rb: {fileID: 0}
+  col: {fileID: -6696721441626751019}
   layerToDetect:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 70
   radius: 5
   bombPower: 500
   isExploding: 0

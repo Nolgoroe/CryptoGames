@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Init Scene.unity
-    guid: e580c6d8bfee39541b328118ed8050be
-  - enabled: 1
     path: Assets/Scenes/LINE Merge game 11 balls scene 1.unity
     guid: c311b65abfbb02446873d3d4a67087e6
   m_configObjects:

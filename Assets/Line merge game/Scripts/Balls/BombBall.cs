@@ -9,7 +9,7 @@ public class BombBall : BallBase
     [SerializeField] float radius = 5;
 
     [Header("Bomb Stats")]
-    [SerializeField] public float bombPower = 7500;
+    [SerializeField] public float bombPower = 1000;
     [SerializeField] public bool isExploding;
     [SerializeField] public float timeToExplode = 4;
 
@@ -17,6 +17,9 @@ public class BombBall : BallBase
     {
         base.Start();
         isExploding = true; //temp until decide on trigger
+
+        layerToDetect = (1 << 6); //flag hardcoded
+
     }
 
     private void Update()

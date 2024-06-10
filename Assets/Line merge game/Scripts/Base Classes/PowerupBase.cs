@@ -27,6 +27,7 @@ public abstract class PowerupBase : MonoBehaviour
 
 
     public abstract void UsePower(); // public since called from button
+    protected abstract void localResetData();
 
     public virtual void AddToPower(float amount)
     {

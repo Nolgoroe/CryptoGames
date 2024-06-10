@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     [Header("Preset data")]
     [SerializeField] Transform leftBound;
     [SerializeField] Transform rightBound;
+    [SerializeField] Transform spawnPosition;
     [SerializeField] float ballBoundOffset = 1;
     [SerializeField] float constBoundOffset = 0.7f;
     [SerializeField] float delayBetweenDrops = 1;
@@ -70,7 +71,7 @@ public class Spawner : MonoBehaviour
             if (!CheckIsTouchPosLowerPlayer(touch.position)) return;
 
             Destroy(currentNonPhysDisplay.gameObject);
-            BallBase go = Instantiate(currentPhysBall, transform.position, Quaternion.identity);
+            BallBase go = Instantiate(currentPhysBall, spawnPosition.position, Quaternion.identity);
 
             currentPhysBall = null;
 
@@ -146,7 +147,7 @@ public class Spawner : MonoBehaviour
     {
         int randomNum = Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
         currentPhysBall = GameManager.staticBallDatabase.balls[randomNum];
-        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[randomNum], transform);
+        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[randomNum], spawnPosition);
 
         SetNewBoundOffset(currentPhysBall);
 
@@ -158,7 +159,7 @@ public class Spawner : MonoBehaviour
 
         currentPhysBall = nextPhysBall;
         int currentBallIndex = currentPhysBall.ReturnBallIndex();
-        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[currentBallIndex], transform);
+        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[currentBallIndex], spawnPosition);
 
         SetNewBoundOffset(currentPhysBall);
         DecideNextBall();

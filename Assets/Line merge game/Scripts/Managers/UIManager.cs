@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
         if (nextBallSR == null) return;
 
         nextBallDisplay.sprite = nextBallSR.sprite;
-        nextBallDisplay.color = nextBallSR.color; //temp since we use colors and simple circle sprites for now - FLAG
         nextBallDisplay.transform.localScale = nextBall.transform.localScale;
     }
 
