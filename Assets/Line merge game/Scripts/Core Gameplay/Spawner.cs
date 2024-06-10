@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] float ballBoundOffset = 1;
     [SerializeField] float constBoundOffset = 0.7f;
     [SerializeField] float delayBetweenDrops = 1;
+    [SerializeField] float cancelOffsetY = 0.5f;
 
     [Header("Live data")]
     [SerializeField] float currentDelayBetweenDrops = 0;
@@ -66,6 +67,7 @@ public class Spawner : MonoBehaviour
         if(touch.phase == TouchPhase.Ended)
         {
             if (currentDelayBetweenDrops > 0) return;
+            if (!CheckIsTouchPosLowerPlayer(touch.position)) return;
 
             Destroy(currentNonPhysDisplay.gameObject);
             BallBase go = Instantiate(currentPhysBall, transform.position, Quaternion.identity);
@@ -94,6 +96,13 @@ public class Spawner : MonoBehaviour
         //}
     }
     
+    private bool CheckIsTouchPosLowerPlayer(Vector2 touchPos)
+    {
+        Vector2 pos = Camera.main.ScreenToWorldPoint(touchPos);
+
+        return pos.y < transform.position.y - cancelOffsetY;
+    }
+
     private void FollowMouse()
     {
         //follow mouse on X while clamped to right and left bounds.
