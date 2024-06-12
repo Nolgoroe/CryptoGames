@@ -6,10 +6,10 @@ using System.Linq;
 [CreateAssetMenu(fileName = "Ball Database", menuName = "ScriptableObjects/Create Ball Database", order = 1)]
 public class BallDatabaseSO : ScriptableObject
 {
-    public Ball[] balls;
+    public BallBase[] balls;
     public GameObject[] NonPhysicBalls;
 
-    public Ball ReturnRandomBallInIndex(int maxIndex)
+    public BallBase ReturnRandomBallInIndex(int maxIndex)
     {
         return balls[Random.Range(0, maxIndex + 1)];
     }

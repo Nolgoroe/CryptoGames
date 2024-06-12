@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerupManager : MonoBehaviour
 {
     public static PowerupManager instance;
 
-    private PowerupBase currentPowerupAllowed;
+    [SerializeField] Button powerupButtonPrefab;
+    [SerializeField] Transform powerupButtonsParent;
+
+    [SerializeField] PowerupBase[] currentPowerupsAllowed;
 
 
     private void Awake()
@@ -16,17 +20,21 @@ public class PowerupManager : MonoBehaviour
 
     private void Start()
     {
-        transform.TryGetComponent<PowerupBase>(out currentPowerupAllowed);
+        for (int i = 0; i < currentPowerupsAllowed.Length; i++)
+        {
+            Button button = Instantiate(powerupButtonPrefab, powerupButtonsParent);
+
+            // VARIABLE capture - not VALUE capture - so we create a new variable to capture each iteration.
+            int currentIndex = i;
+            button.onClick.AddListener(() => PowerButtonClicked(currentPowerupsAllowed[currentIndex]));
+
+            currentPowerupsAllowed[i].InitPower(button);
+        }
     }
 
-
-
-
-
-    public void PowerButtonClicked()
+    public void PowerButtonClicked(PowerupBase power)
     {
-        //called from button
-        currentPowerupAllowed?.UsePower();
+        power?.UsePower();
     }
 
     public void UpdateCurrentPowerAmount(float amount)
@@ -34,6 +42,9 @@ public class PowerupManager : MonoBehaviour
         //temp
         if (!GameManager.gameIsRunning) return;
 
-        currentPowerupAllowed?.AddToPower(amount);
+        foreach (PowerupBase power in currentPowerupsAllowed)
+        {
+            power?.AddToPower(amount);
+        }
     }
 }

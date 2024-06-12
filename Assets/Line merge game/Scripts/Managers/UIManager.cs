@@ -7,10 +7,6 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    [Header("Power ups")]
-    [SerializeField] Image powerupImage;
-    [SerializeField] Button powerupButton;
-
     [Header("Timers")]
     [SerializeField] TMP_Text gameTimerText;
 
@@ -64,18 +60,4 @@ public class UIManager : MonoBehaviour
         gameOverTriggerText.text = fullNum.ToString();
     }
 
-    public void UpdatePowerupImage(float current, float max)
-    {
-        float currentFill = current / max;
-        powerupImage.fillAmount = currentFill;
-        
-        if(currentFill == 1)
-        {
-            powerupButton.interactable = true;
-        }
-        else
-        {
-            powerupButton.interactable = false;
-        }
-    }
 }

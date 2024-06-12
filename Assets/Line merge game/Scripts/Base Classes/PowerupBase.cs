@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class PowerupBase : MonoBehaviour
 {
+    [Header("needed refs")]
+    [SerializeField] Image powerupImage;
+    [SerializeField] Button powerupButton;
+
     [Header("Base data")]
     [SerializeField] float amountNeededToUsePower = 1;
 
@@ -17,11 +22,16 @@ public abstract class PowerupBase : MonoBehaviour
     }
 
 
+    public void InitPower(Button InpowerButton)
+    {
+        powerupButton = InpowerButton;
+        powerupImage = InpowerButton.image;
+    }
 
     protected virtual void ResetPowerUsage()
     {
         currentPowerAmount = 0;
-        UIManager.instance.UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
+        UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
     }
 
 
@@ -36,8 +46,22 @@ public abstract class PowerupBase : MonoBehaviour
         if (currentPowerAmount > amountNeededToUsePower)
             currentPowerAmount = amountNeededToUsePower;
 
-        //Update power display in UI manager
-        UIManager.instance.UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
+        UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
+    }
+
+    private void UpdatePowerupImage(float current, float max)
+    {
+        float currentFill = current / max;
+        powerupImage.fillAmount = currentFill;
+
+        if (currentFill == 1)
+        {
+            powerupButton.interactable = true;
+        }
+        else
+        {
+            powerupButton.interactable = false;
+        }
     }
 
 }

@@ -21,7 +21,7 @@ public class GeneralStatsManager : MonoBehaviour
     [SerializeField] int amountOfBonusesAquired;
 
 
-    /*[SerializeField]*/ List<BallAmountList> ballAmountList = new List<BallAmountList>();
+    [SerializeField] List<BallAmountList> ballAmountList = new List<BallAmountList>();
 
     private void Awake()
     {

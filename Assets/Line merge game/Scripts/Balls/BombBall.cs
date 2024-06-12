@@ -11,7 +11,7 @@ public class BombBall : BallBase
     [Header("Bomb Stats")]
     [SerializeField] public float bombPower = 1000;
     [SerializeField] public bool isExploding;
-    [SerializeField] public float timeToExplode = 4;
+    [SerializeField] public float timeToExplode = 2;
 
     private void Start()
     {

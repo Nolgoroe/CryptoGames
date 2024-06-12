@@ -13,6 +13,7 @@ abstract public class BallBase : MonoBehaviour
     [SerializeField] float stationaryMassPercentage = 0.25f;
     [SerializeField] float timeToReduceMass = 4;
     [SerializeField] bool isBallMergable = false;
+    [SerializeField] SpriteRenderer ballSpriteRenderer;
     float StationaryMass;
 
     [Header("Ball Scoring stats")]
@@ -39,6 +40,8 @@ abstract public class BallBase : MonoBehaviour
         if(col == null)
             col = GetComponent<Collider2D>();
 
+        if(ballSpriteRenderer == null)
+            ballSpriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Awake()
     {
@@ -118,6 +121,11 @@ abstract public class BallBase : MonoBehaviour
         ballOffsetSize = transform.localScale.x / 2;
 
         return ballOffsetSize;
+    }
+
+    public SpriteRenderer ReturnBallSpriteRenderer()
+    {
+        return ballSpriteRenderer;
     }
     #endregion
 

@@ -1,17 +1,19 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombPower : PowerupBase
+public class GroupDestroyPowerup : PowerupBase
 {
     [SerializeField] LayerMask detectionLayer;
 
     bool usingPower = false;
+
     public override void UsePower()
     {
         usingPower = true;
         GameManager.gameIsControllable = false;
-    }
 
+    }
     private void Update()
     {
         if (!usingPower) return;
@@ -21,23 +23,39 @@ public class BombPower : PowerupBase
 
         if (touch.phase == TouchPhase.Began)
         {
-            TryTransformToBomb(touch.position);
+            TryDestroyGroup(touch.position);
         }
 
     }
-
-
-    private void TryTransformToBomb(Vector2 touchPos)
+    private void TryDestroyGroup(Vector2 touchPos)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 0));
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector3.forward, 1000, detectionLayer);
 
-        if(hit)
+        if (hit)
         {
+            BallBase ballBase;
+            if (!hit.transform.TryGetComponent<BallBase>(out ballBase)) return;
+
+
             Debug.Log("Something Hit");
-            hit.transform.gameObject.AddComponent<BombBall>();
+
+            DestroyAction(ballBase);
 
             localResetData();
+        }
+    }
+
+    private void DestroyAction(BallBase ballBase)
+    {
+        //find same color balls in world.
+        List<BallBase> relaventBallLists = GeneralStatsManager.instance.ReturnSpecificBallList(ballBase.ReturnBallIndex());
+
+
+        foreach (BallBase ball in relaventBallLists)
+        {
+            if (ball)
+                Destroy(ball.gameObject);
         }
     }
 

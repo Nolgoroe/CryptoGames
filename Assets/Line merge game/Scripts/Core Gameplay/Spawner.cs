@@ -23,10 +23,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] BallBase currentPhysBall;
     [SerializeField] BallBase nextPhysBall;
 
-    float leftBoundX, rightBoundX;
+    [Header("Live Spawn data")]
+    [SerializeField] BallBase classPhysBallSpawned;
+    [SerializeField] BallBase livePhysBallSpawned;
 
-    [Header("Testing")]
-    public int specificBall;
+    float leftBoundX, rightBoundX;
 
     private void Start()
     {
@@ -37,10 +38,6 @@ public class Spawner : MonoBehaviour
 
         SpawnBallOnStart();
 
-
-
-        ////flag - temp
-        //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
     }
 
     private void Update()
@@ -73,28 +70,18 @@ public class Spawner : MonoBehaviour
             Destroy(currentNonPhysDisplay.gameObject);
             BallBase go = Instantiate(currentPhysBall, spawnPosition.position, Quaternion.identity);
 
-            currentPhysBall = null;
+            //set tracking instantaited ball data
+            classPhysBallSpawned = GameManager.staticBallDatabase.balls[go.ReturnBallIndex()];
+            livePhysBallSpawned = go;
 
+
+            currentPhysBall = null;
 
             DisplayNextBall();
 
             ResetDropCooldown();
 
-            //flag - temp
-            //GameManager.instance.maxballs--;
-
-            //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
-            //if (GameManager.instance.maxballs <= 0)
-            //{
-            //    GameManager.instance.GameOver();
-            //}
         }
-
-        //if(Input.GetMouseButtonDown(1))
-        //{
-        //    //Swap currentPhysBall to nextPhysBall
-        //    //SwapBalls();
-        //}
     }
     
     private bool CheckIsTouchPosLowerPlayer(Vector2 touchPos)
@@ -126,28 +113,11 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void SwapBalls()
-    {
-        //get rid of current displayed ball.
-        Destroy(currentNonPhysDisplay.gameObject);
-
-        //spawn the next ball's display as non phys
-        int nextBallIndex = nextPhysBall.ReturnBallIndex();
-        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[nextBallIndex], transform);
-
-        //current ball = next and next = current
-        BallBase tempBall = currentPhysBall;
-        currentPhysBall = nextPhysBall;
-        nextPhysBall = tempBall;
-
-        UIManager.instance.SetNextBallDisplay(nextPhysBall);
-    }
-
     private void SpawnBallOnStart()
     {
         int randomNum = Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
         currentPhysBall = GameManager.staticBallDatabase.balls[randomNum];
-        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[randomNum], spawnPosition);
+        SpawnNonPhysDisplay(randomNum);
 
         SetNewBoundOffset(currentPhysBall);
 
@@ -159,12 +129,16 @@ public class Spawner : MonoBehaviour
 
         currentPhysBall = nextPhysBall;
         int currentBallIndex = currentPhysBall.ReturnBallIndex();
-        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[currentBallIndex], spawnPosition);
+        SpawnNonPhysDisplay(currentBallIndex);
 
         SetNewBoundOffset(currentPhysBall);
         DecideNextBall();
     }
 
+    private void SpawnNonPhysDisplay(int ballIndex)
+    {
+        currentNonPhysDisplay = Instantiate(GameManager.staticBallDatabase.NonPhysicBalls[ballIndex], spawnPosition);
+    }
     private void DecideNextBall()
     {
         int randomNum = Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
@@ -186,5 +160,27 @@ public class Spawner : MonoBehaviour
     {
         Destroy(currentNonPhysDisplay.gameObject);
         currentPhysBall = null;
+    }
+
+
+
+    public void SwapBalls(BallBase otherBall)
+    {
+        ////get rid of current displayed ball.
+        Destroy(currentNonPhysDisplay.gameObject);
+
+        ////spawn the next ball's display as non phys
+        int nextBallIndex = otherBall.ReturnBallIndex();
+        SpawnNonPhysDisplay(nextBallIndex);
+
+        currentPhysBall = otherBall;
+    }
+
+    public void UndoAction()
+    {
+        if(livePhysBallSpawned)
+            Destroy(livePhysBallSpawned.gameObject);
+
+        SwapBalls(classPhysBallSpawned);
     }
 }

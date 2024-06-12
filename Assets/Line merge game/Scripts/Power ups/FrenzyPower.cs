@@ -25,7 +25,7 @@ public class FrenzyPower : PowerupBase
 
         for (int i = 0; i < randomNum; i++)
         {
-            Ball toSpawn = GameManager.staticBallDatabase.ReturnRandomBallInIndex(0);
+            BallBase toSpawn = GameManager.staticBallDatabase.ReturnRandomBallInIndex(0);
             float randomX = Random.Range((-spawnArea.localScale.x / 2) + spawnAreaOffset,
                 (spawnArea.localScale.x / 2) - spawnAreaOffset);
 
