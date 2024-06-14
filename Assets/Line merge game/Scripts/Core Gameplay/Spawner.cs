@@ -12,10 +12,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] Transform leftBound;
     [SerializeField] Transform rightBound;
     [SerializeField] Transform spawnPosition;
+    [SerializeField] Transform lowerScreenLimit;
     [SerializeField] float ballBoundOffset = 1;
     [SerializeField] float constBoundOffset = 0.7f;
     [SerializeField] float delayBetweenDrops = 1;
-    [SerializeField] float cancelOffsetY = 0.5f;
+    [SerializeField] float cancelTouchPosUpOffset = 0.5f;
 
     [Header("Live data")]
     [SerializeField] float currentDelayBetweenDrops = 0;
@@ -52,7 +53,10 @@ public class Spawner : MonoBehaviour
 
         Touch touch = Input.GetTouch(0);
 
-        if(touch.phase == TouchPhase.Began)
+        if (!CheckIsTouchPosLowerPlayer(touch.position)) return;
+        if (!CheckIsTouchPosAboveLowerLimit(touch.position)) return;
+
+        if (touch.phase == TouchPhase.Began)
         {
             FollowMouse();
         }
@@ -65,7 +69,6 @@ public class Spawner : MonoBehaviour
         if(touch.phase == TouchPhase.Ended)
         {
             if (currentDelayBetweenDrops > 0) return;
-            if (!CheckIsTouchPosLowerPlayer(touch.position)) return;
 
             Destroy(currentNonPhysDisplay.gameObject);
             BallBase go = Instantiate(currentPhysBall, spawnPosition.position, Quaternion.identity);
@@ -88,7 +91,13 @@ public class Spawner : MonoBehaviour
     {
         Vector2 pos = Camera.main.ScreenToWorldPoint(touchPos);
 
-        return pos.y < transform.position.y - cancelOffsetY;
+        return pos.y < transform.position.y - cancelTouchPosUpOffset;
+    }
+    private bool CheckIsTouchPosAboveLowerLimit(Vector2 touchPos)
+    {
+        Vector2 pos = Camera.main.ScreenToWorldPoint(touchPos);
+
+        return pos.y >= lowerScreenLimit.position.y;
     }
 
     private void FollowMouse()

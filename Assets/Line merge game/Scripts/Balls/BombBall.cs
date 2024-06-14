@@ -9,7 +9,7 @@ public class BombBall : BallBase
     [SerializeField] float radius = 5;
 
     [Header("Bomb Stats")]
-    [SerializeField] public float bombPower = 1000;
+    [SerializeField] public float bombPower = 750;
     [SerializeField] public bool isExploding;
     [SerializeField] public float timeToExplode = 2;
 
