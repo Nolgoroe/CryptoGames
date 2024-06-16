@@ -21,7 +21,7 @@ abstract public class BallBase : MonoBehaviour
     [SerializeField] protected int ballScoreMerge = 2;
 
     [Header("Ball Powerup stats")]
-    [SerializeField] protected float ballPowerToAdd = 0;
+    [SerializeField] protected float ballPowerToAdd = 1;
 
     int layerIndex;
 
@@ -121,6 +121,10 @@ abstract public class BallBase : MonoBehaviour
         ballOffsetSize = transform.localScale.x / 2;
 
         return ballOffsetSize;
+    }
+    public float ReturnPowerToAdd()
+    {
+        return ballPowerToAdd;
     }
 
     public SpriteRenderer ReturnBallSpriteRenderer()

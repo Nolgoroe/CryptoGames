@@ -47,4 +47,13 @@ public class PowerupManager : MonoBehaviour
             power?.AddToPower(amount);
         }
     }
+
+
+    public void ToggleContainterAboveSixty(bool isAbove)
+    {
+        foreach (PowerupBase power in currentPowerupsAllowed)
+        {
+            power?.ChangePowerNeeded(isAbove);
+        }
+    }
 }

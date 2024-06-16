@@ -167,8 +167,9 @@ MonoBehaviour:
   stationaryMassPercentage: 1.25
   timeToReduceMass: 4
   isBallMergable: 1
+  ballSpriteRenderer: {fileID: 6688998292057273839}
   ballScoreSpawn: 0
   ballScoreMerge: 10230
-  ballPowerToAdd: 0.9
+  ballPowerToAdd: 1
   rb: {fileID: 0}
   col: {fileID: -6696721441626751019}

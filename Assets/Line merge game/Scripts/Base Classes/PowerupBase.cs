@@ -7,10 +7,11 @@ public abstract class PowerupBase : MonoBehaviour
 {
     [Header("needed refs")]
     [SerializeField] Image powerupImage;
-    [SerializeField] Button powerupButton;
+    [SerializeField] protected Button powerupButton;
 
     [Header("Base data")]
     [SerializeField] float amountNeededToUsePower = 1;
+    [SerializeField] float lowerOnContainerOverSixty = 1;
 
     [Header("Live data")]
     [SerializeField] float currentPowerAmount;
@@ -31,6 +32,7 @@ public abstract class PowerupBase : MonoBehaviour
     protected virtual void ResetPowerUsage()
     {
         currentPowerAmount = 0;
+        powerupButton.interactable = false;
         UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
     }
 
@@ -43,8 +45,23 @@ public abstract class PowerupBase : MonoBehaviour
     {
         currentPowerAmount += amount;
 
-        if (currentPowerAmount > amountNeededToUsePower)
+        if (currentPowerAmount >= amountNeededToUsePower)
             currentPowerAmount = amountNeededToUsePower;
+
+        if (currentPowerAmount / amountNeededToUsePower == 1)
+        {
+            powerupButton.interactable = true;
+        }
+        else
+        {
+            powerupButton.interactable = false;
+        }
+
+        UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
+    }
+    public void ChangePowerNeeded(bool isOver)
+    {
+        amountNeededToUsePower = isOver == true ? amountNeededToUsePower - lowerOnContainerOverSixty : amountNeededToUsePower + lowerOnContainerOverSixty;
 
         UpdatePowerupImage(currentPowerAmount, amountNeededToUsePower);
     }
@@ -53,15 +70,12 @@ public abstract class PowerupBase : MonoBehaviour
     {
         float currentFill = current / max;
         powerupImage.fillAmount = currentFill;
-
-        if (currentFill == 1)
-        {
-            powerupButton.interactable = true;
-        }
-        else
-        {
-            powerupButton.interactable = false;
-        }
     }
 
+
+
+    public float ReturnAmountNeededForPower()
+    {
+        return amountNeededToUsePower;
+    }
 }

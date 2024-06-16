@@ -84,6 +84,9 @@ public class Spawner : MonoBehaviour
 
             ResetDropCooldown();
 
+            //on spawn action event should be here - Flag
+            PowerupManager.instance.UpdateCurrentPowerAmount(go.ReturnPowerToAdd()); //does this break single responsibility? FLAG
+
         }
     }
     
