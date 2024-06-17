@@ -109,5 +109,16 @@ public class GeneralStatsManager : MonoBehaviour
         return ballAmountList[index].ballList;
     }
 
+    public void HeighlightBallsFromIndex(int indexFrom, bool activate)
+    {
+        for (int i = indexFrom; i >= 0; i--)
+        {
+            foreach (BallBase ball in ballAmountList[i].ballList)
+            {
+                ball.ActivateBallHelighlight(activate);
+            }
+        }
+    }
+
     #endregion
 }

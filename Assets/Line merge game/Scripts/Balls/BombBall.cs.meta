@@ -3,7 +3,12 @@ guid: 3a149f1d602568e438c8af3f7f612172
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ballHighlight: {instanceID: 0}
+  - ballSpriteRenderer: {instanceID: 0}
+  - rb: {instanceID: 0}
+  - col: {instanceID: 0}
+  - bombEffectPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

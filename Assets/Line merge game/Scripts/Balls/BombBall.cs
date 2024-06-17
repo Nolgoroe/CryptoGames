@@ -12,6 +12,9 @@ public class BombBall : BallBase
     [SerializeField] public float bombPower = 750;
     [SerializeField] public bool isExploding;
     [SerializeField] public float timeToExplode = 2;
+    [SerializeField] public float explosionDuration = 0.8f;
+
+    Animator bombEffectPrefab;
 
     private void Start()
     {
@@ -56,7 +59,17 @@ public class BombBall : BallBase
             }
         }
 
-        //Destroy(gameObject);
-        Destroy(this);
+        Animator anim = Instantiate(bombEffectPrefab, transform);
+        AnimatorClipInfo[] animInfo = anim.GetCurrentAnimatorClipInfo(0);
+        float animatorSpeed = anim.GetCurrentAnimatorStateInfo(0).speed;
+        explosionDuration = animInfo[0].clip.length / animatorSpeed;
+
+        Destroy(anim.gameObject, explosionDuration);
+        Destroy(this, explosionDuration);
+    }
+
+    public void SetBombEffect(Animator bombEffect)
+    {
+        bombEffectPrefab = bombEffect;
     }
 }

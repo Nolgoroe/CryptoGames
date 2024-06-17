@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpecificObjectDestructionPower : PowerupBase
 {
     [SerializeField] LayerMask transformableLayerMask;
+    [SerializeField] int maxBallIndexAllowed = 4;
 
     bool usingPower = false;
 
@@ -12,6 +13,8 @@ public class SpecificObjectDestructionPower : PowerupBase
     {
         usingPower = true;
         GameManager.instance.SetGameIsControllable(false);
+
+        GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, true);
     }
 
     private void Update()
@@ -47,5 +50,7 @@ public class SpecificObjectDestructionPower : PowerupBase
         usingPower = false;
 
         ResetPowerUsage();
+
+        GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, false);
     }
 }

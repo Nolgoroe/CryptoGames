@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         if (nextBallSR == null) return;
 
         nextBallDisplay.sprite = nextBallSR.sprite;
-        nextBallDisplay.transform.localScale = nextBall.transform.localScale;
+        //nextBallDisplay.transform.localScale = nextBall.transform.localScale;
     }
 
     public void UpdateTimerText(float time)

@@ -6,6 +6,9 @@ using System;
 [RequireComponent(typeof(Rigidbody2D))]
 abstract public class BallBase : MonoBehaviour
 {
+    [Header("Ball Display data")]
+    [SerializeField] GameObject ballHighlight;
+
     [Header("Ball General stats")]
     [SerializeField] protected int ballIndex;
     [SerializeField] float ballOffsetSize = 1;
@@ -130,6 +133,12 @@ abstract public class BallBase : MonoBehaviour
     public SpriteRenderer ReturnBallSpriteRenderer()
     {
         return ballSpriteRenderer;
+    }
+
+    public void ActivateBallHelighlight(bool turnOn)
+    {
+        if(ballHighlight)
+        ballHighlight.SetActive(turnOn);
     }
     #endregion
 
