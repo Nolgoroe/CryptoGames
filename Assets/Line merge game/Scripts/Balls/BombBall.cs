@@ -41,7 +41,7 @@ public class BombBall : BallBase
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, layerToDetect);
         foreach (Collider2D hit in colliders)
         {
-            if (hit.gameObject == gameObject) continue;
+            //if (hit.gameObject == gameObject) continue;
 
             Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
 
@@ -56,6 +56,7 @@ public class BombBall : BallBase
             }
         }
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        Destroy(this);
     }
 }

@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class BombPower : PowerupBase
 {
+    [Header("Bomb data")]
     [SerializeField] LayerMask detectionLayer;
+    [SerializeField] GameObject boardRoof;
 
     bool usingPower = false;
     public override void UsePower()
@@ -23,7 +25,6 @@ public class BombPower : PowerupBase
         {
             TryTransformToBomb(touch.position);
         }
-
     }
 
 
@@ -38,12 +39,14 @@ public class BombPower : PowerupBase
             hit.transform.gameObject.AddComponent<BombBall>();
 
             localResetData();
+
+            boardRoof.gameObject.SetActive(true);
         }
     }
 
     protected override void localResetData()
     {
-        GameManager.gameIsControllable = true;
+        //GameManager.gameIsControllable = true; when the roof deactivates - we return control to player
         usingPower = false;
 
         ResetPowerUsage();

@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.444, y: 1.444, z: 1.444}
+  m_LocalScale: {x: 1.5162, y: 1.5162, z: 1.5162}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -164,12 +164,12 @@ MonoBehaviour:
   ballIndex: 2
   ballOffsetSize: 0.722
   startMass: 25
-  stationaryMassPercentage: 1.25
+  stationaryMassPercentage: 0.5
   timeToReduceMass: 4
   isBallMergable: 1
   ballSpriteRenderer: {fileID: 4862607734873801088}
   ballScoreSpawn: 0
-  ballScoreMerge: 70
+  ballScoreMerge: 10
   ballPowerToAdd: 1
   rb: {fileID: 0}
   col: {fileID: 8493912020361419303}

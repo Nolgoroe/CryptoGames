@@ -505,7 +505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.022, y: -606}
+  m_AnchoredPosition: {x: 3.022, y: -233.526}
   m_SizeDelta: {x: 972.95, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &303469042
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf4f55f1b4075a4c8f45fa173367dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeResetCombo: 10
+  timeBeforeResetCombo: 5
   currentComboReached: 0
   currentTimeResetCombo: 0
   ComboDetected: 0
@@ -3011,8 +3011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea5d9f13dbf4c40837c62af6a0827a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitMaxBall: 5
-  originalBallLimit: 5
+  limitMaxBall: 4
+  originalBallLimit: 4
   currentBallDatabase: {fileID: 11400000, guid: de0958c1f1fea4e49b148f2b399763b0,
     type: 2}
   startDelay: 0
@@ -3027,8 +3027,9 @@ GameObject:
   - component: {fileID: 1700750392}
   - component: {fileID: 1700750394}
   - component: {fileID: 1700750393}
+  - component: {fileID: 1700750395}
   m_Layer: 5
-  m_Name: Top
+  m_Name: Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3106,6 +3107,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700750391}
   m_CullTransparentMesh: 1
+--- !u!114 &1700750395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700750391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b2ff81685ee3b4d95f65ca290dcb7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDeactivate: 3
+  limitsPlayerControl: 1
 --- !u!1 &1705843459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,8 +3220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupImage: {fileID: 0}
   powerupButton: {fileID: 0}
-  amountNeededToUsePower: 3
-  lowerOnContainerOverSixty: 1
+  amountNeededToUsePower: 10
+  lowerOnContainerOverSixty: 4
   currentPowerAmount: 0
   transformableLayerMask:
     serializedVersion: 2
@@ -3225,8 +3240,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupImage: {fileID: 0}
   powerupButton: {fileID: 0}
-  amountNeededToUsePower: 5
-  lowerOnContainerOverSixty: 2
+  amountNeededToUsePower: 6
+  lowerOnContainerOverSixty: 4
   currentPowerAmount: 0
   player: {fileID: 260737038}
   amountBallsToChooseFrom: 5
@@ -3250,12 +3265,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupImage: {fileID: 0}
   powerupButton: {fileID: 0}
-  amountNeededToUsePower: 5
-  lowerOnContainerOverSixty: 2
+  amountNeededToUsePower: 14
+  lowerOnContainerOverSixty: 6
   currentPowerAmount: 0
   detectionLayer:
     serializedVersion: 2
     m_Bits: 64
+  boardRoof: {fileID: 1700750391}
 --- !u!1 &1808451195
 GameObject:
   m_ObjectHideFlags: 0
