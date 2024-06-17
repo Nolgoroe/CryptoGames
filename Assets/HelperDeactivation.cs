@@ -10,7 +10,7 @@ public class HelperDeactivation : MonoBehaviour
     private void OnEnable()
     {
         if(limitsPlayerControl)
-        GameManager.gameIsControllable = false;
+        GameManager.instance.SetGameIsControllable(false);
 
         StartCoroutine(DeactivateAfterX());
     }
@@ -19,8 +19,8 @@ public class HelperDeactivation : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToDeactivate);
 
-        if(limitsPlayerControl)
-        GameManager.gameIsControllable = true;
+        if (limitsPlayerControl)
+            GameManager.instance.CallReActivateControllable();
 
         gameObject.SetActive(false);
     }

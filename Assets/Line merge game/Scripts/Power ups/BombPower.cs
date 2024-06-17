@@ -11,7 +11,7 @@ public class BombPower : PowerupBase
     public override void UsePower()
     {
         usingPower = true;
-        GameManager.gameIsControllable = false;
+        GameManager.instance.SetGameIsControllable(false);
     }
 
     private void Update()

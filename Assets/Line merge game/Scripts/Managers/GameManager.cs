@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameIsRunning = false;
-        gameIsControllable = false;
+        SetGameIsControllable(false);
 
         onGameOver?.Invoke();
     }
@@ -119,13 +119,24 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(startDelay);
         gameIsRunning = true;
-        gameIsControllable = true;
+        SetGameIsControllable(true);
     }
 
     //Temp functions
     public void RestartGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+
+    public void CallReActivateControllable()
+    {
+        StartCoroutine(ReactivateControllable());
+    }
+    IEnumerator ReactivateControllable()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SetGameIsControllable(true);
     }
 
 }

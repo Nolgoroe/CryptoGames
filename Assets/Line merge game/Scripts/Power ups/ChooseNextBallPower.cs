@@ -28,7 +28,7 @@ public class ChooseNextBallPower : PowerupBase
         ballButtonsParent = spawnedScreen.GetComponentInChildren<GridLayoutGroup>().transform;
 
         // block user controls
-        GameManager.gameIsControllable = false;
+        GameManager.instance.SetGameIsControllable(false);
 
         // spawn buttons in ui screen under layout group - by loop of X in the ball SO data list
         for (int i = 0; i < amountBallsToChooseFrom; i++)
@@ -57,7 +57,7 @@ public class ChooseNextBallPower : PowerupBase
     }
     protected override void localResetData()
     {
-        GameManager.gameIsControllable = true;
+        GameManager.instance.CallReActivateControllable();
 
         Destroy(spawnedScreen.gameObject);
         ResetPowerUsage();

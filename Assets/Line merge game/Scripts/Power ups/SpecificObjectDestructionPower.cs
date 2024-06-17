@@ -11,7 +11,7 @@ public class SpecificObjectDestructionPower : PowerupBase
     public override void UsePower()
     {
         usingPower = true;
-        GameManager.gameIsControllable = false;
+        GameManager.instance.SetGameIsControllable(false);
     }
 
     private void Update()
@@ -43,7 +43,7 @@ public class SpecificObjectDestructionPower : PowerupBase
 
     protected override void localResetData()
     {
-        GameManager.gameIsControllable = true;
+        GameManager.instance.CallReActivateControllable();
         usingPower = false;
 
         ResetPowerUsage();
