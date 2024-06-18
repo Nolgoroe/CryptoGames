@@ -24,6 +24,8 @@ public class ChooseNextBallPower : PowerupBase
     public override void UsePower()
     {
         // show UI screen.
+        if (spawnedScreen) return;
+
         spawnedScreen = Instantiate(screenPrefab, screenParent);
         ballButtonsParent = spawnedScreen.GetComponentInChildren<GridLayoutGroup>().transform;
 
