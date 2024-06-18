@@ -562,7 +562,7 @@ MonoBehaviour:
   lowerScreenLimit: {fileID: 1705843460}
   ballBoundOffset: 1
   constBoundOffset: 0.6
-  delayBetweenDrops: 0
+  delayBetweenDrops: 0.5
   cancelTouchPosUpOffset: 0.5
   currentDelayBetweenDrops: 0
   currentNonPhysDisplay: {fileID: 0}
@@ -4179,7 +4179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupImage: {fileID: 0}
   powerupButton: {fileID: 0}
-  amountNeededToUsePower: 7
+  amountNeededToUsePower: 14
   lowerOnContainerOverSixty: 6
   currentPowerAmount: 0
   detectionLayer:
