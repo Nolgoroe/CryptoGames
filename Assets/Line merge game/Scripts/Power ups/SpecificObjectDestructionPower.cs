@@ -37,6 +37,13 @@ public class SpecificObjectDestructionPower : PowerupBase
 
         if (hit)
         {
+            hit.transform.TryGetComponent<BallBase>(out BallBase ball);
+
+            if (ball)
+            {
+                if (ball.ReturnBallIndex() > maxBallIndexAllowed) return;
+            }
+
             Debug.Log("Something Hit");
             Destroy(hit.transform.gameObject);
 

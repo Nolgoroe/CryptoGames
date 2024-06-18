@@ -9,10 +9,10 @@ public class BombBall : BallBase
     [SerializeField] float radius = 5;
 
     [Header("Bomb Stats")]
-    [SerializeField] public float bombPower = 750;
-    [SerializeField] public bool isExploding;
-    [SerializeField] public float timeToExplode = 2;
-    [SerializeField] public float explosionDuration = 0.8f;
+    [SerializeField] private float bombPower = 1500;
+    [SerializeField] private bool isExploding;
+    [SerializeField] private float timeToExplode = 0.5f;
+    private float explosionDuration;
 
     Animator bombEffectPrefab;
 

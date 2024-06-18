@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5162, y: 1.5162, z: 1.5162}
+  m_LocalScale: {x: 1.57624, y: 1.57624, z: 1.57624}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4758804255384226210}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1130434, y: 1.1130434}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -147,9 +147,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0017147064, y: -0.000786225}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.53692865
 --- !u!114 &-904394378433852525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballHighlight: {fileID: 1091796706192741092}
   ballIndex: 2
-  ballOffsetSize: 0.722
+  ballOffsetSize: 0.76
   startMass: 25
   stationaryMassPercentage: 0.5
   timeToReduceMass: 4
