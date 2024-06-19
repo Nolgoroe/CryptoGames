@@ -37,13 +37,11 @@ public class BombPower : PowerupBase
     private void TryTransformToBomb(Vector2 touchPos)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 0));
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector3.forward, 1000, detectionLayer);
-
-        if(hit)
+        if(Physics.Raycast(worldPos, Vector3.forward, out RaycastHit hit, 1000, detectionLayer))
         {
             hit.transform.TryGetComponent<BallBase>(out BallBase ball);
-            
-            if(ball)
+
+            if (ball)
             {
                 if (ball.ReturnBallIndex() > maxBallIndexAllowed) return;
             }
@@ -55,6 +53,7 @@ public class BombPower : PowerupBase
 
             boardRoof.gameObject.SetActive(true);
         }
+
     }
 
     protected override void localResetData()

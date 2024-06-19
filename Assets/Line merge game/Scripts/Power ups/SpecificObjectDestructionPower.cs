@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpecificObjectDestructionPower : PowerupBase
@@ -33,9 +31,7 @@ public class SpecificObjectDestructionPower : PowerupBase
     private void TryDestroyObject(Vector2 touchPos)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 0));
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector3.forward, 1000, transformableLayerMask);
-
-        if (hit)
+        if (Physics.Raycast(worldPos, Vector3.forward, out RaycastHit hit, 1000, transformableLayerMask))
         {
             hit.transform.TryGetComponent<BallBase>(out BallBase ball);
 
@@ -48,6 +44,7 @@ public class SpecificObjectDestructionPower : PowerupBase
             Destroy(hit.transform.gameObject);
 
             localResetData();
+
         }
     }
 

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 abstract public class BallBase : MonoBehaviour
 {
     [Header("Ball Display data")]
@@ -26,11 +24,13 @@ abstract public class BallBase : MonoBehaviour
     [Header("Ball Powerup stats")]
     [SerializeField] protected float ballPowerToAdd = 1;
 
+    [Header("Ball Gravity Data")]
+    [SerializeField] float constantDownForce = 4;
+
     int layerIndex;
 
     //temp serializable - Flag
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] Collider2D col;
+    [SerializeField] Rigidbody rb;
 
     //This might be a problem - violates the Liskov Sub priciple?
     bool isCombining; //should this be here even though not all balls that inherit this will be able to combine?? FLAG
@@ -40,24 +40,20 @@ abstract public class BallBase : MonoBehaviour
 
     private void OnValidate()
     {
-        if(col == null)
-            col = GetComponent<Collider2D>();
-
-        if(ballSpriteRenderer == null)
+        if (ballSpriteRenderer == null)
             ballSpriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
+        rb.mass = startMass;
 
         StationaryMass = startMass * stationaryMassPercentage;
-
         layerIndex = gameObject.layer;
-
         ScoreManager.instance.AddScore(ballScoreSpawn); //does this break single responsibility? FLAG. this happens on start of game after delay
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == layerIndex)
         {
@@ -88,12 +84,13 @@ abstract public class BallBase : MonoBehaviour
         rb.mass = value;
     }
 
-
-
+    private void FixedUpdate()
+    {
+        rb.AddForce(new Vector3(0, constantDownForce, 0), ForceMode.Impulse);
+    }
 
     protected void Start()
     {
-        rb.mass = startMass;
         ReduceMass();
     }
 
@@ -137,8 +134,8 @@ abstract public class BallBase : MonoBehaviour
 
     public void ActivateBallHelighlight(bool turnOn)
     {
-        if(ballHighlight)
-        ballHighlight.SetActive(turnOn);
+        if (ballHighlight)
+            ballHighlight.SetActive(turnOn);
     }
     #endregion
 

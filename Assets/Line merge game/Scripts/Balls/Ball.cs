@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Ball : BallBase, IMergable
 {
+    //[Header ("Merge explosion")]
+    //[SerializeField] LayerMask layerToDetect;
+    //[SerializeField] float radius = 5f;
+    //[SerializeField] private float bombPower = 2000;
+
+
     private void Start()
     {
         base.Start();
@@ -32,7 +38,10 @@ public class Ball : BallBase, IMergable
     }
 
 
-
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawWireSphere(transform.position, radius);
+    }
 
     public void MergeAction(BallBase otherBall)
     {
@@ -52,6 +61,27 @@ public class Ball : BallBase, IMergable
                     }
 
                     SpawnNewBall(otherBall);
+
+
+                    ////"bomb" action
+                    //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, layerToDetect);
+                    //foreach (Collider2D hit in colliders)
+                    //{
+                    //    //if (hit.gameObject == gameObject) continue;
+
+                    //    Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+
+                    //    if (rb != null)
+                    //    {
+                    //        Vector2 distanceVec = hit.transform.position - transform.position;
+                    //        if (distanceVec.magnitude > 0)
+                    //        {
+                    //            float explodeForce = bombPower;
+                    //            rb.AddForce((distanceVec.normalized * explodeForce), ForceMode2D.Impulse);
+                    //        }
+                    //    }
+                    //}
+
                 }
                 else
                 {

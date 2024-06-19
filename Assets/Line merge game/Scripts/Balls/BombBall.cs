@@ -6,10 +6,10 @@ public class BombBall : BallBase
 {
     [Header("Detection Stats")]
     [SerializeField] LayerMask layerToDetect;
-    [SerializeField] float radius = 5;
+    [SerializeField] float radius = 5f;
 
     [Header("Bomb Stats")]
-    [SerializeField] private float bombPower = 1500;
+    [SerializeField] private float bombPower = 6000;
     [SerializeField] private bool isExploding;
     [SerializeField] private float timeToExplode = 0.5f;
     private float explosionDuration;
@@ -41,12 +41,12 @@ public class BombBall : BallBase
 
     private void Explode()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, layerToDetect);
-        foreach (Collider2D hit in colliders)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, layerToDetect);
+        foreach (Collider hit in colliders)
         {
             //if (hit.gameObject == gameObject) continue;
 
-            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
 
             if (rb != null)
             {
@@ -54,7 +54,7 @@ public class BombBall : BallBase
                 if (distanceVec.magnitude > 0)
                 {
                     float explodeForce = bombPower;
-                    rb.AddForce((distanceVec.normalized * explodeForce), ForceMode2D.Impulse);
+                    rb.AddForce((distanceVec.normalized * explodeForce), ForceMode.Impulse);
                 }
             }
         }
