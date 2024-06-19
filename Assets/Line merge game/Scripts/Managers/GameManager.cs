@@ -28,7 +28,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        UnityEngine.Random.InitState(42);
+        DateTime now = DateTime.Now;
+        string seedString = now.ToString("yyyyMMddHHmmssfff");
+        int seed = seedString.GetHashCode();
+
+        UnityEngine.Random.InitState(seed);
         Application.targetFrameRate = 60;
 
         SetBallDatabase(currentBallDatabase);
