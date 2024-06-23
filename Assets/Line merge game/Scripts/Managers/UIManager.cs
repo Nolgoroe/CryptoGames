@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     [Header("Score")]
     [SerializeField] TMP_Text scoreText;
 
+    [Header("Score Multi")]
+    [SerializeField] TMP_Text multiplierText;
+
     [Header("Game over trigger")]
     [SerializeField] TMP_Text gameOverTriggerText;
 
@@ -31,6 +34,10 @@ public class UIManager : MonoBehaviour
     public void UpdateScoreText(int amount)
     {
         scoreText.text = amount.ToString();
+    }
+    public void UpdateScoreMultiText(float amount)
+    {
+        multiplierText.text =  "X" + amount.ToString("F1");
     }
 
     public void SetNextBallDisplay(BallBase nextBall)

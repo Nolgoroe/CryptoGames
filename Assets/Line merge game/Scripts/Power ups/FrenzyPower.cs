@@ -5,7 +5,7 @@ using UnityEngine;
 public class FrenzyPower : PowerupBase
 {
     [Header("Preset data")]
-    [SerializeField] Transform spawnArea;
+    [SerializeField] RectTransform spawnArea;
     [SerializeField] GameOverTrigger gameOverTrigger;
     [SerializeField] float spawnAreaOffset;
     [SerializeField] float timeBetweenSpawns = 0.1f;
@@ -26,8 +26,8 @@ public class FrenzyPower : PowerupBase
         for (int i = 0; i < randomNum; i++)
         {
             BallBase toSpawn = GameManager.staticBallDatabase.ReturnRandomBallInIndex(0);
-            float randomX = Random.Range((-spawnArea.localScale.x / 2) + spawnAreaOffset,
-                (spawnArea.localScale.x / 2) - spawnAreaOffset);
+            float randomX = Random.Range((-4) + spawnAreaOffset,
+                (4) - spawnAreaOffset);
 
             Vector3 newPos = center + new Vector3(randomX, 0, 0);
 

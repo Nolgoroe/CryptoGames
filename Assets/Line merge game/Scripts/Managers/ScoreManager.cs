@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
         //temp
         if (!GameManager.gameIsRunning) return;
 
-        currentScore += amount;
+        currentScore += Mathf.RoundToInt(amount * ChainManager.currentMultiplierReached);
         UIManager.instance.UpdateScoreText(currentScore);
     }
 

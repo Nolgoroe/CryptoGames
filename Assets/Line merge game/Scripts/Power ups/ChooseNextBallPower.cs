@@ -17,7 +17,6 @@ public class ChooseNextBallPower : PowerupBase
 
     [Header("Buttons")]
     [SerializeField] private Button ballButtonPrefab;
-    [SerializeField] private Transform ballButtonsParent;
 
 
     GameObject spawnedScreen;
@@ -27,7 +26,6 @@ public class ChooseNextBallPower : PowerupBase
         if (spawnedScreen) return;
 
         spawnedScreen = Instantiate(screenPrefab, screenParent);
-        ballButtonsParent = spawnedScreen.GetComponentInChildren<GridLayoutGroup>().transform;
 
         // block user controls
         GameManager.instance.SetGameIsControllable(false);
@@ -35,7 +33,12 @@ public class ChooseNextBallPower : PowerupBase
         // spawn buttons in ui screen under layout group - by loop of X in the ball SO data list
         for (int i = 0; i < amountBallsToChooseFrom; i++)
         {
-            Button button = Instantiate(ballButtonPrefab, ballButtonsParent);
+            ChooseOneScreenUI ballButtonParent;
+            spawnedScreen.TryGetComponent<ChooseOneScreenUI>(out ballButtonParent);
+
+            if (!ballButtonParent) return;
+
+            Button button = Instantiate(ballButtonPrefab, ballButtonParent.zones[i]);
             button.image.sprite = GameManager.staticBallDatabase.balls[i].ReturnBallSpriteRenderer().sprite;
 
 

@@ -101,7 +101,7 @@ public class Ball : BallBase, IMergable
 
         ScoreManager.instance.AddScore(ballScoreMerge); //does this break single responsibility? FLAG
         //PowerupManager.instance.UpdateCurrentPowerAmount(ballPowerToAdd); //does this break single responsibility? FLAG
-        ChainManager.instance.AddToChainCount(); //does this break single responsibility? FLAG
+        ChainManager.instance.AddToChainCount(this); //does this break single responsibility? FLAG
     }
 
 }

@@ -7,7 +7,7 @@ public class PowerupManager : MonoBehaviour
 {
     public static PowerupManager instance;
 
-    [SerializeField] Button powerupButtonPrefab;
+    //[SerializeField] Button powerupButtonPrefab;
     [SerializeField] Transform powerupButtonsParent;
 
     [SerializeField] PowerupBase[] currentPowerupsAllowed;
@@ -22,7 +22,7 @@ public class PowerupManager : MonoBehaviour
     {
         for (int i = 0; i < currentPowerupsAllowed.Length; i++)
         {
-            Button button = Instantiate(powerupButtonPrefab, powerupButtonsParent);
+            Button button = Instantiate(currentPowerupsAllowed[i].PublicPowerButtonPrefab, powerupButtonsParent);
 
             // VARIABLE capture - not VALUE capture - so we create a new variable to capture each iteration.
             int currentIndex = i;

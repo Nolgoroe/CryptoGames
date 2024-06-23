@@ -21,6 +21,9 @@ abstract public class BallBase : MonoBehaviour
     [SerializeField] int ballScoreSpawn = 1;
     [SerializeField] protected int ballScoreMerge = 2;
 
+    [Header("Ball Multiplier stats")]
+    [SerializeField] float ballMultiplierToAdd = 1;
+
     [Header("Ball Powerup stats")]
     [SerializeField] protected float ballPowerToAdd = 1;
 
@@ -125,6 +128,10 @@ abstract public class BallBase : MonoBehaviour
     public float ReturnPowerToAdd()
     {
         return ballPowerToAdd;
+    }
+    public float ReturnMultiplierToAdd()
+    {
+        return ballMultiplierToAdd;
     }
 
     public SpriteRenderer ReturnBallSpriteRenderer()

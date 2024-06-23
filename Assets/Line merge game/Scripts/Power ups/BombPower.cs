@@ -11,13 +11,24 @@ public class BombPower : PowerupBase
     [Header("Needed references")]
     [SerializeField] Animator bombEffectPrefab;
 
+    [Header("Screen")]
+    [SerializeField] private GameObject screenPrefab;
+    [SerializeField] private Transform screenParent;
+
     bool usingPower = false;
+    GameObject spawnedScreen;
+
     public override void UsePower()
-    {
+    {        
+        // show UI screen.
+        if (spawnedScreen) return;
+
+        spawnedScreen = Instantiate(screenPrefab, screenParent);
+
         usingPower = true;
         GameManager.instance.SetGameIsControllable(false);
 
-        //GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, true);
+        GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, true);
     }
 
     private void Update()
@@ -58,11 +69,11 @@ public class BombPower : PowerupBase
 
     protected override void localResetData()
     {
-        //GameManager.gameIsControllable = true; when the roof deactivates - we return control to player
         usingPower = false;
 
+        Destroy(spawnedScreen.gameObject);
         ResetPowerUsage();
 
-        //GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, false);
+        GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, false);
     }
 }

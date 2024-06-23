@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IChainAction
 {
-    void NotifyObserver(int currentComboReached);
+    void NotifyObserver(BallBase ball, int currentComboReached);
+    void NotifyObserverReset();
 }

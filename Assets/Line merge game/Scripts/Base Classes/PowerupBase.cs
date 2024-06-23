@@ -8,6 +8,7 @@ public abstract class PowerupBase : MonoBehaviour
     [Header("needed refs")]
     [SerializeField] Image powerupImage;
     [SerializeField] protected Button powerupButton;
+    [SerializeField] protected PowerButtonData powerButtonData;
 
     [Header("Base data")]
     [SerializeField] float amountNeededToUsePower = 1;
@@ -27,6 +28,8 @@ public abstract class PowerupBase : MonoBehaviour
     {
         powerupButton = InpowerButton;
         powerupImage = InpowerButton.image;
+
+        InpowerButton.TryGetComponent<PowerButtonData>(out powerButtonData);
     }
 
     protected virtual void ResetPowerUsage()
@@ -69,7 +72,8 @@ public abstract class PowerupBase : MonoBehaviour
     private void UpdatePowerupImage(float current, float max)
     {
         float currentFill = current / max;
-        powerupImage.fillAmount = currentFill;
+
+        powerButtonData.ChangeFillAmount(currentFill);
     }
 
 
@@ -78,4 +82,6 @@ public abstract class PowerupBase : MonoBehaviour
     {
         return amountNeededToUsePower;
     }
+
+    public Button PublicPowerButtonPrefab => powerupButton;
 }

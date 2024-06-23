@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b847a4f19eb1af546aafc0d9d5e53946, type: 3}
+  m_Name: Bonus score on combo
+  m_EditorClassIdentifier: 
+  scoreComboDataArray:
+  - comboIndex: 0
+    scoreBonus: 0
+  - comboIndex: 1
+    scoreBonus: 0
+  - comboIndex: 2
+    scoreBonus: 0
+  - comboIndex: 3
+    scoreBonus: 0
+  - comboIndex: 4
+    scoreBonus: 0
+  - comboIndex: 5
+    scoreBonus: 100
+  - comboIndex: 6
+    scoreBonus: 0
+  - comboIndex: 7
+    scoreBonus: 0
+  - comboIndex: 8
+    scoreBonus: 0
+  - comboIndex: 9
+    scoreBonus: 0
+  - comboIndex: 10
+    scoreBonus: 500
+  - comboIndex: 11
+    scoreBonus: 500
+  - comboIndex: 12
+    scoreBonus: 500
+  - comboIndex: 13
+    scoreBonus: 500
+  - comboIndex: 14
+    scoreBonus: 1000

@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class ChainManager : MonoBehaviour
 {
@@ -16,6 +14,9 @@ public class ChainManager : MonoBehaviour
     [SerializeField] int currentComboReached;
     [SerializeField] float currentTimeResetCombo;
     [SerializeField] bool ComboDetected;
+
+    [Header("live multiplier Data")]
+    public static float currentMultiplierReached = 1;
 
     private void Awake()
     {
@@ -36,6 +37,8 @@ public class ChainManager : MonoBehaviour
             if (currentTimeResetCombo < 0)
             {
                 ResetChainTimer();
+
+                ResetAllObservers();
             }
         }
     }
@@ -47,22 +50,37 @@ public class ChainManager : MonoBehaviour
 
         Debug.Log("Reset at: " + currentComboReached);
         currentComboReached = 0;
-
     }
 
-    private void NotifyAllObservers()
+    private void NotifyAllObservers(BallBase ball)
     {
         foreach (IChainAction observer in chainActions)
         {
-            observer.NotifyObserver(currentComboReached);
+            observer.NotifyObserver(ball, currentComboReached);
+        }
+    }
+    private void ResetAllObservers()
+    {
+        foreach (IChainAction observer in chainActions)
+        {
+            observer.NotifyObserverReset();
         }
     }
 
 
 
+    public void ChangeMulti(float amount)
+    {
+        currentMultiplierReached += amount;
 
+        if (currentMultiplierReached < 1)
+            currentMultiplierReached = 1;
 
-    public void AddToChainCount()
+        //update UI
+        UIManager.instance.UpdateScoreMultiText(currentMultiplierReached);
+    }
+
+    public void AddToChainCount(BallBase ball)
     {
         //temp
         if (!GameManager.gameIsRunning) return;
@@ -73,7 +91,7 @@ public class ChainManager : MonoBehaviour
 
         ComboDetected = true;
 
-        NotifyAllObservers();
+        NotifyAllObservers(ball);
 
         GeneralStatsManager.instance.TrackComboData(currentComboReached);
     }

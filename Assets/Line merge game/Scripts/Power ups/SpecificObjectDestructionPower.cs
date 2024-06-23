@@ -2,13 +2,24 @@ using UnityEngine;
 
 public class SpecificObjectDestructionPower : PowerupBase
 {
-    [SerializeField] LayerMask transformableLayerMask;
+    [Header("Preset Data")]
+    [SerializeField] LayerMask layerToDetect;
     [SerializeField] int maxBallIndexAllowed = 4;
 
+    [Header("Screen")]
+    [SerializeField] private GameObject screenPrefab;
+    [SerializeField] private Transform screenParent;
+
     bool usingPower = false;
+    GameObject spawnedScreen;
 
     public override void UsePower()
-    {
+    {        
+        // show UI screen.
+        if (spawnedScreen) return;
+
+        spawnedScreen = Instantiate(screenPrefab, screenParent);
+
         usingPower = true;
         GameManager.instance.SetGameIsControllable(false);
 
@@ -31,7 +42,7 @@ public class SpecificObjectDestructionPower : PowerupBase
     private void TryDestroyObject(Vector2 touchPos)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 0));
-        if (Physics.Raycast(worldPos, Vector3.forward, out RaycastHit hit, 1000, transformableLayerMask))
+        if (Physics.Raycast(worldPos, Vector3.forward, out RaycastHit hit, 1000, layerToDetect))
         {
             hit.transform.TryGetComponent<BallBase>(out BallBase ball);
 
@@ -53,6 +64,7 @@ public class SpecificObjectDestructionPower : PowerupBase
         GameManager.instance.CallReActivateControllable();
         usingPower = false;
 
+        Destroy(spawnedScreen.gameObject);
         ResetPowerUsage();
 
         GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, false);

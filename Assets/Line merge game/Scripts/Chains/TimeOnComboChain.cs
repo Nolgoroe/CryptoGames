@@ -28,15 +28,16 @@ public class TimeOnComboChain : MonoBehaviour, IChainAction
 
 
 
-    public void NotifyObserver(int currentComboReached)
+    public void NotifyObserver(BallBase ball, int currentComboReached)
     {
         if (currentComboReached % bonusThreshold == 0)
         {
             GameManager.instance.SendAddToTimer(timeToAddOnCombo);
-
-            ////flag - temp
-            //GameManager.instance.maxballs++;
-            //UIManager.instance.UpdateBallsLeftText(GameManager.instance.maxballs);
         }
+    }
+
+    public void NotifyObserverReset()
+    {
+        // some effect on reset?
     }
 }
