@@ -89,7 +89,7 @@ abstract public class BallBase : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector3(0, constantDownForce, 0), ForceMode.Impulse);
+        rb.AddForce(new Vector3(0, constantDownForce * (1 + transform.position.y), 0), ForceMode.Force);
     }
 
     protected void Start()

@@ -103,7 +103,7 @@ MonoBehaviour:
   ballHighlight: {fileID: 9136194778059915001}
   ballIndex: 8
   ballOffsetSize: 0
-  startMass: 100
+  startMass: 200
   stationaryMassPercentage: 0.75
   timeToReduceMass: 4
   isBallMergable: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
   ballScoreMerge: 5310
   ballMultiplierToAdd: 0.75
   ballPowerToAdd: 1
-  constantDownForce: -20
+  constantDownForce: 0
   rb: {fileID: 0}
 --- !u!135 &3821676478405047443
 SphereCollider:
@@ -160,8 +160,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 24
-  m_CollisionDetection: 2
+  m_Constraints: 56
+  m_CollisionDetection: 3
 --- !u!1001 &9063085835335391680
 PrefabInstance:
   m_ObjectHideFlags: 0
