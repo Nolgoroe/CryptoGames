@@ -28,9 +28,14 @@ abstract public class BallBase : MonoBehaviour
     [SerializeField] protected float ballPowerToAdd = 1;
 
     [Header("Ball Gravity Data")]
-    [SerializeField] float constantDownForce = 4;
+    [SerializeField] float currentDownForce = 0;
+    [SerializeField] float spawnDownForce = -4;
+    [SerializeField] float stationairyDownForce = -15;
+    [SerializeField] float maxDownwardForce = 200;
+    [SerializeField] float completeForceCalc = 0;
 
     int layerIndex;
+    bool collided = false;
 
     //temp serializable - Flag
     [SerializeField] Rigidbody rb;
@@ -50,6 +55,7 @@ abstract public class BallBase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.mass = startMass;
+        //rb.useGravity = false;
 
         StationaryMass = startMass * stationaryMassPercentage;
         layerIndex = gameObject.layer;
@@ -58,6 +64,10 @@ abstract public class BallBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //currentDownForce = stationairyDownForce;
+        collided = true;
+        //rb.useGravity = true;
+
         if (collision.gameObject.layer == layerIndex)
         {
             collision.gameObject.TryGetComponent<BallBase>(out BallBase otherBall);
@@ -81,20 +91,46 @@ abstract public class BallBase : MonoBehaviour
     {
         LeanTween.value(gameObject, rb.mass, StationaryMass, timeToReduceMass).setOnUpdate(ChangeMassAction);
     }
+    //private void ChangeDownForce()
+    //{
+    //    LeanTween.value(gameObject, currentDownForce, stationairyDownForce, timeToChangeForce).setOnUpdate(changeDownForce);
+    //}
 
     private void ChangeMassAction(float value)
     {
         rb.mass = value;
     }
+    //private void changeDownForce(float value)
+    //{
+    //    currentDownForce = value;
+    //}
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector3(0, constantDownForce * (1 + transform.position.y), 0), ForceMode.Force);
+
+        if (!collided)
+        {
+            rb.AddForce(new Vector3(0, currentDownForce, 0), ForceMode.VelocityChange);
+        }
+        else
+        {
+            if(rb.velocity.magnitude < 0.1f)
+            {
+                //currentForceTest = (currentDownForce * transform.position.y) - rb.mass;
+
+                completeForceCalc = stationairyDownForce * rb.mass;
+                completeForceCalc = Mathf.Clamp(completeForceCalc, 100, maxDownwardForce);
+
+                rb.AddForce(Vector3.down * completeForceCalc, ForceMode.Force);
+            }
+        }
     }
 
     protected void Start()
     {
+        currentDownForce = spawnDownForce;
         ReduceMass();
+        //ChangeDownForce();
     }
 
     protected void OnMerge()
@@ -146,4 +182,11 @@ abstract public class BallBase : MonoBehaviour
     }
     #endregion
 
+
+
+    [ContextMenu("reduce mass manual")]
+    public void ReduceMassManual()
+    {
+        rb.mass = rb.mass * stationaryMassPercentage;
+    }
 }

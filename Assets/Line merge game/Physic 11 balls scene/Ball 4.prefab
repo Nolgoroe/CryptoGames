@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5100001, y: 1.5100001, z: 1.5100001}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7742698111634073946}
@@ -102,9 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballHighlight: {fileID: 2765187051015729692}
   ballIndex: 3
-  ballOffsetSize: 0.75500005
-  startMass: 200
-  stationaryMassPercentage: 0.75
+  ballOffsetSize: 0.675
+  startMass: 100
+  stationaryMassPercentage: 1
   timeToReduceMass: 4
   isBallMergable: 1
   ballSpriteRenderer: {fileID: 7476333630716263510}
@@ -112,7 +112,11 @@ MonoBehaviour:
   ballScoreMerge: 110
   ballMultiplierToAdd: 0.25
   ballPowerToAdd: 1
-  constantDownForce: 0
+  currentDownForce: 0
+  spawnDownForce: -0.15
+  stationairyDownForce: 19.6
+  maxDownwardForce: 10000
+  completeForceCalc: 0
   rb: {fileID: 0}
 --- !u!135 &4439732629308910709
 SphereCollider:
@@ -133,8 +137,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.54
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.535
+  m_Center: {x: -0.003509862, y: 0, z: 0}
 --- !u!54 &7682337057584839071
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +165,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 56
-  m_CollisionDetection: 3
+  m_CollisionDetection: 1
 --- !u!1001 &2689544851217519909
 PrefabInstance:
   m_ObjectHideFlags: 0

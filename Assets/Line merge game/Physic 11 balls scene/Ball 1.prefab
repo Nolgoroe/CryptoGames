@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6885748579244681688}
   - component: {fileID: 4862607734873801088}
   - component: {fileID: 7087281512480805564}
-  - component: {fileID: 5556925101676398519}
   - component: {fileID: 7238129828017106269}
+  - component: {fileID: 5556925101676398519}
   m_Layer: 6
   m_Name: Ball 1
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.66, y: 0.66, z: 0.66}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5890264091356400684}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 2884b3ba81e09c84b95593070fa49b8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,9 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballHighlight: {fileID: 2058734280779863914}
   ballIndex: 0
-  ballOffsetSize: 0.33
-  startMass: 230
-  stationaryMassPercentage: 0.75
+  ballOffsetSize: 0.35
+  startMass: 100
+  stationaryMassPercentage: 1
   timeToReduceMass: 4
   isBallMergable: 1
   ballSpriteRenderer: {fileID: 4862607734873801088}
@@ -112,8 +112,33 @@ MonoBehaviour:
   ballScoreMerge: 1
   ballMultiplierToAdd: 0.1
   ballPowerToAdd: 1
-  constantDownForce: 0
+  currentDownForce: 0
+  spawnDownForce: -0.15
+  stationairyDownForce: 19.6
+  maxDownwardForce: 10000
+  completeForceCalc: 0
   rb: {fileID: 0}
+--- !u!135 &7238129828017106269
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962211896355919250}
+  m_Material: {fileID: 13400000, guid: 4b540e8886576c046a1b64831c040905, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.535
+  m_Center: {x: -0.003509862, y: 0, z: 0}
 --- !u!54 &5556925101676398519
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,28 +165,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 56
-  m_CollisionDetection: 3
---- !u!135 &7238129828017106269
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8962211896355919250}
-  m_Material: {fileID: 13400000, guid: 4b540e8886576c046a1b64831c040905, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.54
-  m_Center: {x: 0, y: 0, z: 0}
+  m_CollisionDetection: 1
 --- !u!1001 &2278491392702279763
 PrefabInstance:
   m_ObjectHideFlags: 0

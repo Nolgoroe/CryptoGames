@@ -27,7 +27,7 @@ public class Ball : BallBase, IMergable
         {
             SetIsCombining();
             otherBall.SetIsCombining();
-
+            ReduceMassManual();
             //basic actions that need to happen always are - destroy current and other ball and spawn the merged ball
             BallBase go = Instantiate(newBall, MidPos, Quaternion.identity);
 
