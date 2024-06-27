@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.508, y: 2.508, z: 2.508}
+  m_LocalScale: {x: 2.31, y: 2.31, z: 2.31}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3375944860275606126}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballHighlight: {fileID: 7202874177241258280}
-  ballIndex: 7
+  ballIndex: 5
   ballOffsetSize: 0
   startMass: 65
   startMassMerge: 250

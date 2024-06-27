@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.98, y: 0.98, z: 0.98}
+  m_LocalScale: {x: 0.46, y: 0.46, z: 0.46}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4758804255384226210}
@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballHighlight: {fileID: 1091796706192741092}
-  ballIndex: 2
-  ballOffsetSize: 0.49020004
+  ballIndex: 0
+  ballOffsetSize: 0.23
   startMass: 90
   startMassMerge: 250
   stationaryMassPercentage: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
   ballPowerToAdd: 1
   currentDownForce: 0
   spawnDownForce: 0.15
-  stationairyDownForce: -19.6
+  stationairyDownForce: -100
   maxDownwardForce: -10000
   completeForceCalc: 0
   ballMaterialTest: {fileID: 13400000, guid: dbe3f5990b3e91744af9d5bfa544d3e2, type: 2}

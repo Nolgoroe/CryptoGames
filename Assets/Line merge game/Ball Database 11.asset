@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Ball Database 11
   m_EditorClassIdentifier: 
   balls:
-  - {fileID: 7087281512480805564, guid: ce5d4e159e7500b41891e6dafe592581, type: 3}
-  - {fileID: 8159057257748396592, guid: 6d7e144c2c175474f8a15343bab094d1, type: 3}
   - {fileID: -904394378433852525, guid: 3084bfe48ea830b4eb71a9bd39d314bb, type: 3}
   - {fileID: -2328189678396353387, guid: 979891e3f5916294da5530616526d483, type: 3}
   - {fileID: 214555923583516394, guid: 59c38b63721690948ba67cda0bb7c6e9, type: 3}
@@ -25,8 +23,6 @@ MonoBehaviour:
   - {fileID: -5712973362545050883, guid: 18e6284b6786bb84c9eafa3300f12473, type: 3}
   - {fileID: -5712973362545050883, guid: 49e7e6c6d1dc1b04dbc501cae9d9ad48, type: 3}
   NonPhysicBalls:
-  - {fileID: 8962211896355919250, guid: 802ca1ca12e79384b937e87181c0a34b, type: 3}
-  - {fileID: 6886176019901636531, guid: b96bd22f63dc22a419d28a3e85ff8829, type: 3}
   - {fileID: 8962211896355919250, guid: e4f5925ab2a551e48a612972131b6812, type: 3}
   - {fileID: 6655428607504979169, guid: db400289acc4da74d81ea8a91f11ff44, type: 3}
   - {fileID: 6655428607504979169, guid: 57fc02d98cb27ad49a8e14d298ddc362, type: 3}
