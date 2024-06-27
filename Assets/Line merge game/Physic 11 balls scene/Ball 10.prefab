@@ -103,7 +103,7 @@ MonoBehaviour:
   ballHighlight: {fileID: 2308781987088043504}
   ballIndex: 9
   ballOffsetSize: 0
-  startMass: 100
+  startMass: 55
   startMassMerge: 250
   stationaryMassPercentage: 1
   timeToReduceMass: 4
@@ -114,9 +114,9 @@ MonoBehaviour:
   ballMultiplierToAdd: 0.9
   ballPowerToAdd: 1
   currentDownForce: 0
-  spawnDownForce: -0.15
-  stationairyDownForce: 19.6
-  maxDownwardForce: 10000
+  spawnDownForce: 0.15
+  stationairyDownForce: -19.6
+  maxDownwardForce: -10000
   completeForceCalc: 0
   ballMaterialTest: {fileID: 13400000, guid: dbe3f5990b3e91744af9d5bfa544d3e2, type: 2}
   normalMaterial: {fileID: 13400000, guid: 4b540e8886576c046a1b64831c040905, type: 2}
