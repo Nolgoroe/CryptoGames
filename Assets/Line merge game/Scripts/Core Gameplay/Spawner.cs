@@ -59,8 +59,8 @@ public class Spawner : MonoBehaviour
 
         Touch touch = Input.GetTouch(0);
 
-        if (!CheckIsTouchPosLowerPlayer(touch.position)) return;
-        if (!CheckIsTouchPosAboveLowerLimit(touch.position)) return;
+        //if (!CheckIsTouchPosLowerPlayer(touch.position)) return;
+        //if (!CheckIsTouchPosAboveLowerLimit(touch.position)) return;
 
         if (touch.phase == TouchPhase.Began)
         {

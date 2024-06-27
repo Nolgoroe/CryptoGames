@@ -30,7 +30,7 @@ public class Ball : BallBase, IMergable
             ReduceMassManual();
             //basic actions that need to happen always are - destroy current and other ball and spawn the merged ball
             BallBase go = Instantiate(newBall, MidPos, Quaternion.identity);
-
+            go.TestTestFunc();
             OnMerge();
             Destroy(otherBall.gameObject);
             Destroy(gameObject);

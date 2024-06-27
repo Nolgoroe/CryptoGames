@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -10,7 +11,8 @@ abstract public class BallBase : MonoBehaviour
     [Header("Ball General stats")]
     [SerializeField] protected int ballIndex;
     [SerializeField] float ballOffsetSize = 1;
-    [SerializeField] float startMass = 50;
+    [SerializeField] float startMass = 100;
+    [SerializeField] float startMassMerge = 1000;
     [SerializeField] float stationaryMassPercentage = 0.25f;
     [SerializeField] float timeToReduceMass = 4;
     [SerializeField] bool isBallMergable = false;
@@ -30,20 +32,26 @@ abstract public class BallBase : MonoBehaviour
     [Header("Ball Gravity Data")]
     [SerializeField] float currentDownForce = 0;
     [SerializeField] float spawnDownForce = -4;
-    [SerializeField] float stationairyDownForce = -15;
+    [SerializeField] float stationairyDownForce = 19.6f;
     [SerializeField] float maxDownwardForce = 200;
     [SerializeField] float completeForceCalc = 0;
+
+
+    [Header("Ball Gravity Data")]
+    [SerializeField] PhysicMaterial ballMaterialTest;
+    [SerializeField] PhysicMaterial normalMaterial;
+    [SerializeField] float timeToChangeMat = 0.1f;
 
     int layerIndex;
     bool collided = false;
 
     //temp serializable - Flag
     [SerializeField] Rigidbody rb;
+    [SerializeField] Collider col;
 
     //This might be a problem - violates the Liskov Sub priciple?
     bool isCombining; //should this be here even though not all balls that inherit this will be able to combine?? FLAG
     protected Action OnMergeBall;
-
 
 
     private void OnValidate()
@@ -54,12 +62,30 @@ abstract public class BallBase : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+
         rb.mass = startMass;
         //rb.useGravity = false;
 
         StationaryMass = startMass * stationaryMassPercentage;
         layerIndex = gameObject.layer;
         ScoreManager.instance.AddScore(ballScoreSpawn); //does this break single responsibility? FLAG. this happens on start of game after delay
+    }
+
+    public void TestTestFunc()
+    {
+        StartCoroutine(TestFunc());
+    }
+    IEnumerator TestFunc()
+    {
+        rb.mass = startMassMerge;
+        col.sharedMaterial = ballMaterialTest;
+
+        yield return new WaitForSeconds(timeToChangeMat);
+
+        rb.mass = StationaryMass;
+        col.sharedMaterial = normalMaterial;
+
     }
 
     private void OnCollisionEnter(Collision collision)
