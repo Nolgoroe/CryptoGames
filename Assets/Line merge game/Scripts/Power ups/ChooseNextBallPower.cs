@@ -25,6 +25,8 @@ public class ChooseNextBallPower : PowerupBase
         // show UI screen.
         if (spawnedScreen) return;
 
+        PowerupManager.instance.anyPowerBeingUsed = true; // get by reference variable instead of singleton (Flag)
+
         spawnedScreen = Instantiate(screenPrefab, screenParent);
 
         // block user controls
@@ -62,6 +64,8 @@ public class ChooseNextBallPower : PowerupBase
     }
     protected override void localResetData()
     {
+        PowerupManager.instance.anyPowerBeingUsed = false;
+
         GameManager.instance.CallReActivateControllable();
 
         Destroy(spawnedScreen.gameObject);

@@ -184,39 +184,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stroke Highlight
       objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
+    - target: {fileID: 219766201683830585, guid: ff76cf5959544b947be524f2c3ede22e,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,

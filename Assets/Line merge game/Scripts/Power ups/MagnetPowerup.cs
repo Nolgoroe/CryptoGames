@@ -21,10 +21,12 @@ public class MagnetPowerup : PowerupBase
         // show UI screen.
         if (spawnedScreen) return;
 
+        PowerupManager.instance.anyPowerBeingUsed = true; // get by reference variable instead of singleton (Flag)
+        GameManager.instance.SetGameIsControllable(false);
+
         spawnedScreen = Instantiate(screenPrefab, screenParent);
 
         usingPower = true;
-        //GameManager.instance.SetGameIsControllable(false);
         GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, true);
     }
 
@@ -63,6 +65,8 @@ public class MagnetPowerup : PowerupBase
     protected override void localResetData()
     {
         usingPower = false;
+        GameManager.instance.SetGameIsControllable(true);
+        PowerupManager.instance.anyPowerBeingUsed = false;
 
         Destroy(spawnedScreen.gameObject);
 

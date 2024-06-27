@@ -12,6 +12,7 @@ public class PowerupManager : MonoBehaviour
 
     [SerializeField] PowerupBase[] currentPowerupsAllowed;
 
+    public bool anyPowerBeingUsed = false;
 
     private void Awake()
     {
@@ -34,6 +35,8 @@ public class PowerupManager : MonoBehaviour
 
     public void PowerButtonClicked(PowerupBase power)
     {
+        if (anyPowerBeingUsed) return;
+
         power?.UsePower();
     }
 

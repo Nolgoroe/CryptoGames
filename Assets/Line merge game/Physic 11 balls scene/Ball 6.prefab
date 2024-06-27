@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8012, y: 1.8012, z: 1.8012}
+  m_LocalScale: {x: 1.801, y: 1.801, z: 1.801}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7577227370283114880}
@@ -183,6 +183,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stroke Highlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 219766201683830585, guid: ff76cf5959544b947be524f2c3ede22e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5629701991107427455, guid: ff76cf5959544b947be524f2c3ede22e,
         type: 3}
