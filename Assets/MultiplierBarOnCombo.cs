@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MultiplierBarOnCombo : MonoBehaviour, IChainAction
 {
     [SerializeField] Image multiplierBarFill;
-    [SerializeField] float amountToAddtoMulti = 0.2f;
+    [SerializeField] float amountToAddToMulti = 0.2f;
     [SerializeField] float minimumFillSize = 0.15f;
     [SerializeField] float barEmptySpeed = 0.1f;
 
@@ -44,7 +44,7 @@ public class MultiplierBarOnCombo : MonoBehaviour, IChainAction
                 {
                     multiplierBarFill.transform.localScale = new Vector3(1, Y, Z);
 
-                    chainManager.ChangeMulti(-amountToAddtoMulti);
+                    chainManager.ChangeMulti(-amountToAddToMulti);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ public class MultiplierBarOnCombo : MonoBehaviour, IChainAction
         {
             multiplierBarFill.transform.localScale = new Vector3(minimumFillSize, Y, Z);
 
-            chainManager.ChangeMulti(amountToAddtoMulti);
+            chainManager.ChangeMulti(amountToAddToMulti);
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
-
+using GoogleSheetsForUnity; //FLAG - should this be here
 
 public class Spawner : MonoBehaviour
 {
@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         if (!GameManager.gameIsRunning || !GameManager.gameIsControllable) return;
-        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (EventSystem.current.IsPointerOverGameObject(0)) return;
 
         CountDropCooldown();
 
@@ -83,7 +83,6 @@ public class Spawner : MonoBehaviour
             classPhysBallSpawned = GameManager.staticBallDatabase.balls[go.ReturnBallIndex()];
             livePhysBallSpawned = go;
 
-
             currentPhysBall = null;
 
             DisplayNextBall();
@@ -93,6 +92,10 @@ public class Spawner : MonoBehaviour
             //on spawn action event should be here - Flag
             PowerupManager.instance.UpdateCurrentPowerAmount(go.ReturnPowerToAdd()); //does this break single responsibility? FLAG
 
+            GeneralStatsManager.instance.StartDeadBallTimer(go); //Flag - should this be here?
+            GeneralStatsManager.instance.StartBallDroppedTimer(); //Flag - should this be here?
+
+            UnityGoogleSheetsSaveData.Instance.UpdateDataOnDropBall();
         }
     }
     
@@ -133,7 +136,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnBallOnStart()
     {
-        int randomNum = UnityEngine.Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
+        int randomNum = UnityEngine.Random.Range(0, GameManager.limitMaxBall + 1); //Excludes last num, so + 1 to reverse the exclude.
         currentPhysBall = GameManager.staticBallDatabase.balls[randomNum];
         SpawnNonPhysDisplay(randomNum);
 
@@ -159,7 +162,7 @@ public class Spawner : MonoBehaviour
     }
     private void DecideNextBall()
     {
-        int randomNum = UnityEngine.Random.Range(0, GameManager.maxBallIndexReached + 1); //Excludes last num, so + 1 to reverse the exclude.
+        int randomNum = UnityEngine.Random.Range(0, GameManager.limitMaxBall + 1); //Excludes last num, so + 1 to reverse the exclude.
         nextPhysBall = GameManager.staticBallDatabase.balls[randomNum];
 
         //set next ball in UI - send for UI Manager to take care of it.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using GoogleSheetsForUnity; //FLAG - Should be here?
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +12,10 @@ public class GameManager : MonoBehaviour
     public static bool gameIsControllable;
     public static event Action onGameOver;
     public static BallDatabaseSO staticBallDatabase;
-    public static int maxBallIndexReached;
+    public static int limitMaxBall;
 
-    [SerializeField] int limitMaxBall;
-    [SerializeField] int originalBallLimit = 3;
+    [SerializeField] int controlLimitMaxBall;
+    //[SerializeField] int originalBallLimit = 3;
 
     [Header("Needed References")]
     [SerializeField] BallDatabaseSO currentBallDatabase;
@@ -26,6 +27,11 @@ public class GameManager : MonoBehaviour
     public int startDelay = 5;
     //public int maxballs;
 
+    private void OnEnable()
+    {
+        onGameOver = null;
+    }
+
     private void Awake()
     {
         DateTime now = DateTime.Now;
@@ -36,7 +42,6 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
         SetBallDatabase(currentBallDatabase);
-
 
         instance = this;
 
@@ -54,7 +59,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DelayBeforeStart()); //FLAG temp - think of better way to wait for all prelude to finish.. maybe remove from list when done and then check when list is empty after every remove?
 
         //flag - temp
-        maxBallIndexReached = originalBallLimit;
+        limitMaxBall = controlLimitMaxBall;
+
+
+        UpdateSaveData();
+
+        UnityGoogleSheetsSaveData.Instance.DataReset(); //FLAG - WHY IS THIS HERE?!
+
+        onGameOver += RestartGame;
     }
     private void TryGetTimer()
     {
@@ -85,11 +97,11 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBallIndexReached(int index)
     {
-        maxBallIndexReached = index;
+        limitMaxBall = index;
 
-        if(maxBallIndexReached > limitMaxBall)
+        if(limitMaxBall > controlLimitMaxBall)
         {
-            maxBallIndexReached = limitMaxBall;
+            limitMaxBall = controlLimitMaxBall;
         }
     }
 
@@ -118,7 +130,6 @@ public class GameManager : MonoBehaviour
 
 
 
-    //Temp
     private IEnumerator DelayBeforeStart()
     {
         yield return new WaitForSeconds(startDelay);
@@ -126,12 +137,20 @@ public class GameManager : MonoBehaviour
         SetGameIsControllable(true);
     }
 
-    //Temp functions
     public void RestartGame()
     {
-        SceneManager.LoadScene(0);
+        UnityGoogleSheetsSaveData.Instance.CallSaveState();
+
+        //add delay
+
+        StartCoroutine(DelayBeforeReset());
     }
 
+    IEnumerator DelayBeforeReset()
+    {
+        yield return new WaitForSeconds(2); //FLAG magic numbers
+        SceneManager.LoadScene(0);
+    }
 
     public void CallReActivateControllable()
     {
@@ -143,4 +162,10 @@ public class GameManager : MonoBehaviour
         SetGameIsControllable(true);
     }
 
+
+    private void UpdateSaveData()
+    {
+        UnityGoogleSheetsSaveData.Instance.UpdateRangeOfBalls(0, limitMaxBall);
+        UnityGoogleSheetsSaveData.Instance.AddToGamesThisSession();
+    }
 }

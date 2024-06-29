@@ -37,7 +37,7 @@ public class MagnetPowerup : PowerupBase
 
         Touch touch = Input.GetTouch(0);
 
-        if (touch.phase == TouchPhase.Began)
+        if (touch.phase == TouchPhase.Ended)
         {
             TryTransformMagnet(touch.position);
         }
@@ -65,7 +65,6 @@ public class MagnetPowerup : PowerupBase
     protected override void localResetData()
     {
         usingPower = false;
-        GameManager.instance.SetGameIsControllable(true);
         PowerupManager.instance.anyPowerBeingUsed = false;
 
         Destroy(spawnedScreen.gameObject);
@@ -73,5 +72,7 @@ public class MagnetPowerup : PowerupBase
         ResetPowerUsage();
 
         GeneralStatsManager.instance.HeighlightBallsFromIndex(maxBallIndexAllowed, false);
+
+        GameManager.instance.SetGameIsControllable(true);
     }
 }

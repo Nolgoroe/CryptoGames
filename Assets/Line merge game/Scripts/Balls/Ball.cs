@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using GoogleSheetsForUnity; //Flag - should not be here
 public class Ball : BallBase, IMergable
 {
     //[Header ("Merge explosion")]
@@ -55,32 +55,12 @@ public class Ball : BallBase, IMergable
             {
                 if (ballIndex + 1 < GameManager.staticBallDatabase.balls.Length)
                 {
-                    if (ballIndex + 1 > GameManager.maxBallIndexReached && ballIndex + 1 < GameManager.staticBallDatabase.balls.Length - 1)
+                    if (ballIndex + 1 > GameManager.limitMaxBall && ballIndex + 1 < GameManager.staticBallDatabase.balls.Length - 1)
                     {
                         GameManager.instance.UpdateBallIndexReached(ballIndex + 1); //does this break single responsibility? FLAG
                     }
 
                     SpawnNewBall(otherBall);
-
-
-                    ////"bomb" action
-                    //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, layerToDetect);
-                    //foreach (Collider2D hit in colliders)
-                    //{
-                    //    //if (hit.gameObject == gameObject) continue;
-
-                    //    Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
-
-                    //    if (rb != null)
-                    //    {
-                    //        Vector2 distanceVec = hit.transform.position - transform.position;
-                    //        if (distanceVec.magnitude > 0)
-                    //        {
-                    //            float explodeForce = bombPower;
-                    //            rb.AddForce((distanceVec.normalized * explodeForce), ForceMode2D.Impulse);
-                    //        }
-                    //    }
-                    //}
 
                 }
                 else
@@ -100,8 +80,18 @@ public class Ball : BallBase, IMergable
         //add score, show effects, etc...
 
         ScoreManager.instance.AddScore(ballScoreMerge); //does this break single responsibility? FLAG
+        ScoreManager.instance.AddScoreNoMultis(ballScoreMerge); //does this break single responsibility? FLAG
+        ScoreManager.instance.AddOldScore(ballScoreMergeOld); //does this break single responsibility? FLAG
+        
+        
         //PowerupManager.instance.UpdateCurrentPowerAmount(ballPowerToAdd); //does this break single responsibility? FLAG
         ChainManager.instance.AddToChainCount(this); //does this break single responsibility? FLAG
+        GeneralStatsManager.instance.StopDeadBallTimer(); //Flag - should this be here?
+
+
+
+        UnityGoogleSheetsSaveData.Instance.AddToTotalMerges();
+        UnityGoogleSheetsSaveData.Instance.UpdateToMaxBallIndexReached(ballIndex + 1);
     }
 
 }

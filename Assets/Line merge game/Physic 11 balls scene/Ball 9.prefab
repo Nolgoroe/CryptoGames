@@ -110,7 +110,8 @@ MonoBehaviour:
   isBallMergable: 1
   ballSpriteRenderer: {fileID: 6688998292057273839}
   ballScoreSpawn: 0
-  ballScoreMerge: 5310
+  ballScoreMerge: 5110
+  ballScoreMergeOld: 45
   ballMultiplierToAdd: 0.75
   ballPowerToAdd: 1
   currentDownForce: 0

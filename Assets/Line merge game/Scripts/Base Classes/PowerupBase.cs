@@ -11,6 +11,7 @@ public abstract class PowerupBase : MonoBehaviour
     [SerializeField] protected PowerButtonData powerButtonData;
 
     [Header("Base data")]
+    [SerializeField] int powerID = 0;
     [SerializeField] float amountNeededToUsePower = 1;
     [SerializeField] float lowerOnContainerOverSixty = 1;
 
@@ -23,6 +24,10 @@ public abstract class PowerupBase : MonoBehaviour
         currentPowerAmount = 0;
     }
 
+    public void SetPowerupID(int id)
+    {
+        powerID = id;
+    }
 
     public void InitPower(Button InpowerButton)
     {
@@ -83,5 +88,12 @@ public abstract class PowerupBase : MonoBehaviour
         return amountNeededToUsePower;
     }
 
-    public Button PublicPowerButtonPrefab => powerupButton;
+    public int RetrunPowerID()
+    {
+        return powerID;
+    }
+    public Button ReturnPowerButtonPrefab()
+    {
+        return powerupButton;
+    }
 }

@@ -22,6 +22,7 @@ abstract public class BallBase : MonoBehaviour
     [Header("Ball Scoring stats")]
     [SerializeField] int ballScoreSpawn = 1;
     [SerializeField] protected int ballScoreMerge = 2;
+    [SerializeField] protected int ballScoreMergeOld = 2;
 
     [Header("Ball Multiplier stats")]
     [SerializeField] float ballMultiplierToAdd = 1;

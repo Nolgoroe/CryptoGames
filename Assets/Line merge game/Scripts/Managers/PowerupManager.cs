@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GoogleSheetsForUnity; //FLAG - Should be here?
 
 public class PowerupManager : MonoBehaviour
 {
@@ -19,11 +20,19 @@ public class PowerupManager : MonoBehaviour
         instance = this; //FLAG - I hate the usage on Singletons in this project - think of a better way.
     }
 
+    private void OnValidate()
+    {
+        for (int i = 0; i < currentPowerupsAllowed.Length; i++)
+        {
+            currentPowerupsAllowed[i].SetPowerupID(i + 1);
+        }
+    }
+
     private void Start()
     {
         for (int i = 0; i < currentPowerupsAllowed.Length; i++)
         {
-            Button button = Instantiate(currentPowerupsAllowed[i].PublicPowerButtonPrefab, powerupButtonsParent);
+            Button button = Instantiate(currentPowerupsAllowed[i].ReturnPowerButtonPrefab(), powerupButtonsParent);
 
             // VARIABLE capture - not VALUE capture - so we create a new variable to capture each iteration.
             int currentIndex = i;
@@ -38,6 +47,8 @@ public class PowerupManager : MonoBehaviour
         if (anyPowerBeingUsed) return;
 
         power?.UsePower();
+
+        UnityGoogleSheetsSaveData.Instance.AddToPowerupUsage(power.RetrunPowerID());
     }
 
     public void UpdateCurrentPowerAmount(float amount)

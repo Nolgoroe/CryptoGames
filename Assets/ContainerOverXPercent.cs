@@ -1,27 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoogleSheetsForUnity; //FLAG
+public enum FillAmount
+{
+    fill30,
+    fill60,
+    fill90
+}
 
 public class ContainerOverXPercent : MonoBehaviour
 {
     [Header("Trigger Preset Data")]
     [SerializeField] float timeToActivate;
+    [SerializeField] FillAmount fillAmount;
 
     [Header("Trigger Live Data")]
     [SerializeField] float currentTimer;
     [SerializeField] bool isTriggered = false;
 
 
-    [SerializeField] List<Collider2D> CollidersDetected = new List<Collider2D>();
+    [SerializeField] List<Collider> CollidersDetected = new List<Collider>();
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider other)
     {
         if (!GameManager.gameIsRunning) return;
 
-        if (collision.gameObject.layer == 6 && !CollidersDetected.Contains(collision))
+        if (other.gameObject.layer == 6 && !CollidersDetected.Contains(other))
         {
-            CollidersDetected.Add(collision);
+            CollidersDetected.Add(other);
         }
+
+    }
+
+    private void Start()
+    {
+        StartCoroutine(CleanAction());
     }
 
     private void Update()
@@ -36,16 +50,16 @@ public class ContainerOverXPercent : MonoBehaviour
             {
                 isTriggered = true;
                 PowerupManager.instance.ToggleContainterAboveSixty(isTriggered);
+                UnityGoogleSheetsSaveData.Instance.UpdateContainerFilledTimes(fillAmount);
             }
         }
     }
 
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.layer == 6 && CollidersDetected.Contains(collision))
+        if (other.gameObject.layer == 6 && CollidersDetected.Contains(other))
         {
-            CollidersDetected.Remove(collision);
+            CollidersDetected.Remove(other);
 
             if (CollidersDetected.Count <= 0)
             {
@@ -63,5 +77,24 @@ public class ContainerOverXPercent : MonoBehaviour
             isTriggered = false;
             PowerupManager.instance.ToggleContainterAboveSixty(isTriggered);
         }
+    }
+
+    private IEnumerator CleanAction()
+    {
+        yield return new WaitForSeconds(1);
+
+        foreach (Collider col in CollidersDetected.ToArray())
+        {
+            if (col == null)
+                CollidersDetected.Remove(col);
+
+            if (CollidersDetected.Count <= 0)
+            {
+                CollidersDetected.Clear();
+                currentTimer = 0;
+            }
+        }
+
+        StartCoroutine(CleanAction());
     }
 }

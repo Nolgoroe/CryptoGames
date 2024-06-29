@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoogleSheetsForUnity; //FLAG - Should be here?
 
 [System.Serializable]
 public class BallAmountList
@@ -8,6 +9,20 @@ public class BallAmountList
     public int amountOfBall;
     public List<BallBase> ballList;
 }
+[System.Serializable]
+public class DeadBallItem
+{
+    public float curretnTime = 0;
+    public BallBase ball;
+}
+
+[System.Serializable]
+public class ComboCounter
+{
+    public int comboNumber;
+    public int timesReached;
+}
+
 public class GeneralStatsManager : MonoBehaviour
 {
     public static GeneralStatsManager instance;
@@ -19,7 +34,17 @@ public class GeneralStatsManager : MonoBehaviour
     [Header("Combo Data")]
     [SerializeField] int highestComboReached;
     [SerializeField] int amountOfBonusesAquired;
+    [SerializeField] List<ComboCounter> comboCounterList;
 
+    [Header("Dead balls tracker")]
+    [SerializeField] List<DeadBallItem> deadBallList;
+    [SerializeField] float timeToCountDeadBall = 2;
+
+    [Header("Consecutive ball drop tracker")]
+    [SerializeField] int consecutiveBallsDropped = 0;
+    [SerializeField] float currentConsecutiveTimer = 2;
+    [SerializeField] float consecutiveTimerMaxTime = 2;
+    [SerializeField] bool consecutiveCounterOn = false;
 
     [SerializeField] List<BallAmountList> ballAmountList = new List<BallAmountList>();
 
@@ -30,12 +55,43 @@ public class GeneralStatsManager : MonoBehaviour
 
     private void Start()
     {
+        deadBallList = new List<DeadBallItem>();
+        comboCounterList = new List<ComboCounter>();
+
+        currentConsecutiveTimer = consecutiveTimerMaxTime;
+
         CreateBallAmountList();
 
         StartCoroutine(CleanAction());
 
     }
 
+    private void Update()
+    {
+        if(deadBallList.Count > 0)
+        {
+            foreach (DeadBallItem deadBall in deadBallList.ToArray())
+            {
+                deadBall.curretnTime += Time.deltaTime;
+
+                if(deadBall.curretnTime >= timeToCountDeadBall)
+                {
+                    deadBallList.Remove(deadBall);
+                    UnityGoogleSheetsSaveData.Instance.AddToDeadBalls();
+                }
+            }
+        }
+
+        if(consecutiveCounterOn)
+        {
+            currentConsecutiveTimer -= Time.deltaTime;
+            if(currentConsecutiveTimer <= 0)
+            {
+                consecutiveCounterOn = false;
+                currentConsecutiveTimer = consecutiveTimerMaxTime;
+            }
+        }
+    }
 
     private void CreateBallAmountList()
     {
@@ -88,7 +144,51 @@ public class GeneralStatsManager : MonoBehaviour
         }
     }
 
+    public void StartBallDroppedTimer()
+    {
+        if(currentConsecutiveTimer < consecutiveTimerMaxTime)
+        {
+            consecutiveBallsDropped++;
 
+            UnityGoogleSheetsSaveData.Instance.AddToConsecutiveBallsDroppedWithinXTime();
+        }
+
+
+        consecutiveCounterOn = true;
+        currentConsecutiveTimer = consecutiveTimerMaxTime;
+    }
+
+    public void StartDeadBallTimer(BallBase ball)
+    {
+        DeadBallItem deadBall = new DeadBallItem();
+        deadBall.ball = ball;
+
+        deadBallList.Add(deadBall);
+    }
+    public void StopDeadBallTimer()
+    {
+        deadBallList.Clear();
+    }
+
+    public void AddToComboCounter(int comboNumber)
+    {
+        if (comboNumber < 2) return;
+
+        foreach (ComboCounter counter in comboCounterList)
+        {
+            if (counter.comboNumber == comboNumber)
+            {
+                counter.timesReached++;
+                return;
+            }
+        }
+
+
+        ComboCounter newCounter = new ComboCounter();
+        newCounter.comboNumber = comboNumber;
+        newCounter.timesReached = 1;
+        comboCounterList.Add(newCounter);
+    }
     #region Public Return Data
     public List<List<BallBase>> ReturnMostCommonBallLists()
     {
@@ -107,6 +207,10 @@ public class GeneralStatsManager : MonoBehaviour
     public List<BallBase> ReturnSpecificBallList(int index)
     {
         return ballAmountList[index].ballList;
+    }
+    public List<ComboCounter> ReturnComboCounterList()
+    {
+        return comboCounterList;
     }
 
     public void HeighlightBallsFromIndex(int indexFrom, bool activate)

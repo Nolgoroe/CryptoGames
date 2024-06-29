@@ -111,6 +111,7 @@ MonoBehaviour:
   ballSpriteRenderer: {fileID: 6688998292057273839}
   ballScoreSpawn: 0
   ballScoreMerge: 20470
+  ballScoreMergeOld: 2
   ballMultiplierToAdd: 1
   ballPowerToAdd: 1
   currentDownForce: 0

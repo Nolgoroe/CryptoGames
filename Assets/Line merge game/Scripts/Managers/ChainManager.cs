@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using GoogleSheetsForUnity; //FLAG - Should be here?
 
 public class ChainManager : MonoBehaviour
 {
@@ -49,6 +50,8 @@ public class ChainManager : MonoBehaviour
         currentTimeResetCombo = timeBeforeResetCombo;
 
         Debug.Log("Reset at: " + currentComboReached);
+
+        GeneralStatsManager.instance.AddToComboCounter(currentComboReached);
         currentComboReached = 0;
     }
 
@@ -86,6 +89,7 @@ public class ChainManager : MonoBehaviour
         if (!GameManager.gameIsRunning) return;
 
         currentComboReached++;
+        UnityGoogleSheetsSaveData.Instance.TranslateComboListToSpecificData(currentComboReached);
 
         currentTimeResetCombo = timeBeforeResetCombo;
 

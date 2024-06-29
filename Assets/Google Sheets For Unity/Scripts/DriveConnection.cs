@@ -8,7 +8,22 @@ namespace GoogleSheetsForUnity
     public class DriveConnection : MonoBehaviour
     {
         public ConnectionData connectionData;
-        
+        public static DriveConnection Instance { get; private set; }
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                Instance = this;
+            }
+        }
 
         public void ExecuteRequest(UnityWebRequest www, Dictionary<string, string> postData)
         {

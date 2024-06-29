@@ -11,19 +11,22 @@ public class GameOverTrigger : MonoBehaviour
     [SerializeField] float currentTimer;
     [SerializeField] bool invincible;
 
-    List<Collider2D> CollidersDetected = new List<Collider2D>();
+    [SerializeField] List<Collider> CollidersDetected = new List<Collider>();
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider other)
     {
         if (!GameManager.gameIsRunning) return;
         if (invincible) return;
 
-        if(collision.gameObject.layer == 6 && !CollidersDetected.Contains(collision))
+        if (other.gameObject.layer == 6 && !CollidersDetected.Contains(other))
         {
-            CollidersDetected.Add(collision);
+            CollidersDetected.Add(other);
         }
     }
-
+    private void Start()
+    {
+        StartCoroutine(CleanAction());
+    }
     private void Update()
     {
         if(!GameManager.gameIsRunning) return;
@@ -42,13 +45,13 @@ public class GameOverTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.layer == 6 && CollidersDetected.Contains(collision))
+        if (other.gameObject.layer == 6 && CollidersDetected.Contains(other))
         {
-            CollidersDetected.Remove(collision);
+            CollidersDetected.Remove(other);
 
-            if(CollidersDetected.Count <= 0)
+            if (CollidersDetected.Count <= 0)
             {
                 CollidersDetected.Clear();
                 ResetTimer();
@@ -64,6 +67,24 @@ public class GameOverTrigger : MonoBehaviour
     }
 
 
+    private IEnumerator CleanAction()
+    {
+        yield return new WaitForSeconds(1);
+
+        foreach (Collider col in CollidersDetected.ToArray())
+        {
+            if (col == null)
+                CollidersDetected.Remove(col);
+
+            if (CollidersDetected.Count <= 0)
+            {
+                CollidersDetected.Clear();
+                ResetTimer();
+            }
+        }
+
+        StartCoroutine(CleanAction());
+    }
 
 
 
