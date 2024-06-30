@@ -49,7 +49,12 @@ public class ContainerOverXPercent : MonoBehaviour
             if (currentTimer >= timeToActivate)
             {
                 isTriggered = true;
-                PowerupManager.instance.ToggleContainterAboveSixty(isTriggered);
+
+                if(fillAmount == FillAmount.fill60) //FLAG
+                {
+                    PowerupManager.instance.ToggleContainterAboveSixty(isTriggered);
+                }
+
                 UnityGoogleSheetsSaveData.Instance.UpdateContainerFilledTimes(fillAmount);
             }
         }

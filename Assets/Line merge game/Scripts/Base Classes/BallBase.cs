@@ -19,6 +19,9 @@ abstract public class BallBase : MonoBehaviour
     [SerializeField] SpriteRenderer ballSpriteRenderer;
     float StationaryMass;
 
+    [Header("Ball Live stats")]
+    [SerializeField] Vector3 ballPosition;
+
     [Header("Ball Scoring stats")]
     [SerializeField] int ballScoreSpawn = 1;
     [SerializeField] protected int ballScoreMerge = 2;
@@ -59,11 +62,16 @@ abstract public class BallBase : MonoBehaviour
     {
         if (ballSpriteRenderer == null)
             ballSpriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+
+        if (col == null)
+            col = GetComponent<Collider>();
+
     }
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
 
         rb.mass = startMass;
         //rb.useGravity = false;
@@ -118,30 +126,25 @@ abstract public class BallBase : MonoBehaviour
     {
         LeanTween.value(gameObject, rb.mass, StationaryMass, timeToReduceMass).setOnUpdate(ChangeMassAction);
     }
-    //private void ChangeDownForce()
-    //{
-    //    LeanTween.value(gameObject, currentDownForce, stationairyDownForce, timeToChangeForce).setOnUpdate(changeDownForce);
-    //}
-
     private void ChangeMassAction(float value)
     {
         rb.mass = value;
     }
-    //private void changeDownForce(float value)
-    //{
-    //    currentDownForce = value;
-    //}
 
+    private void Update()
+    {
+        ballPosition = transform.position;
+    }
     private void FixedUpdate()
     {
 
         if (!collided)
         {
-            rb.AddForce(new Vector3(0, currentDownForce, 0), ForceMode.VelocityChange);
+            //rb.AddForce(new Vector3(0, currentDownForce, 0), ForceMode.VelocityChange);
         }
         else
         {
-            if(rb.velocity.magnitude < 0.1f)
+            if (rb.velocity.magnitude < 0.1f)
             {
                 //currentForceTest = (currentDownForce * transform.position.y) - rb.mass;
 
@@ -182,6 +185,15 @@ abstract public class BallBase : MonoBehaviour
     {
         return ballIndex;
     }
+    public Vector3 ReturnBallPosition()
+    {
+        return ballPosition;
+    }
+    public Vector3 ReturnBallVelocity()
+    {
+        return rb.velocity;
+    }
+
     public float ReturnOffsetSize()
     {
         ballOffsetSize = transform.localScale.x / 2;
@@ -215,5 +227,12 @@ abstract public class BallBase : MonoBehaviour
     public void ReduceMassManual()
     {
         rb.mass = rb.mass * stationaryMassPercentage;
+    }
+
+    [ContextMenu("Add force manual")]
+    public void ManualSetVelocity(Vector3 vel)
+    {
+        if(rb != null)
+            rb.velocity = vel;
     }
 }

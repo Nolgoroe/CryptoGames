@@ -10,12 +10,12 @@ namespace GoogleSheetsForUnity
         [Header("General one time data")]
         public string playerID = "Rando"; //No need reset
         public string rangeOfBalls = "null"; //No need reset
-        public string offsetBallSizes = "null"; //No need reset
+        public string offsetBallSizes = "Base + 5%"; //No need reset
         public string buildVersion = "null"; //No need reset
         public string gameDate = ""; //No need reset
         public string appLaunchTime = ""; //No need reset
         public string timeUntilAppClose = ""; //No need reset
-        public int gamesThisSession = 0; //No need reset
+        public int gamesThisSession = 1; //No need reset
 
         [Header("Merge data")]
         public int totalMerges = 0; //need reset
@@ -70,9 +70,12 @@ namespace GoogleSheetsForUnity
         public int combo13 = 0; //need reset
         public int combo14 = 0; //need reset
         public int combo15 = 0; //need reset
+
+        [Header("Timer")]
+        public float timeFromStartOfNewSession;
     }
 
-    public class UnityGoogleSheetsSaveData : MonoBehaviour
+    public class UnityGoogleSheetsSaveData : MonoBehaviour, ISaveLoadable
     {
         public static UnityGoogleSheetsSaveData Instance { get; private set; }
 
@@ -85,11 +88,11 @@ namespace GoogleSheetsForUnity
 
         [Header("Helper Game Data")]
         public float currentGameTime;
-        public float timeFromStartOfNewSession;
         public int[] expectedScores;
 
         private void Awake()
         {
+
             DontDestroyOnLoad(this);
 
             if (Instance != null && Instance != this)
@@ -102,20 +105,24 @@ namespace GoogleSheetsForUnity
                 Instance = this;
             }
 
+        }
+        private void Start()
+        {
             saveDataContainer.playerID = SystemInfo.deviceUniqueIdentifier;
             saveDataContainer.buildVersion = Application.productName + " Build num: " + Application.version;
 
-            Debug.Log("Test");
+            if (saveDataContainer.gameDate != DateTime.Now.ToString("yyyy-MM-dd"))
+            {
+                saveDataContainer.gameDate = DateTime.Now.ToString("yyyy-MM-dd");
+            }
 
-            saveDataContainer.gameDate = DateTime.Now.ToString("yyyy-MM-dd");
             saveDataContainer.appLaunchTime = DateTime.Now.ToString("HH:mm:ss");
         }
-
 
         private void Update()
         {
             currentGameTime += Time.deltaTime;
-            timeFromStartOfNewSession += Time.deltaTime;
+            saveDataContainer.timeFromStartOfNewSession += Time.deltaTime;
             UpdateTimeTillAppClose((int)currentGameTime);
         }
 
@@ -194,11 +201,11 @@ namespace GoogleSheetsForUnity
 
             if (saveDataContainer.timeToFirstMerge == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeToFirstMerge, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeToFirstMerge, (int)saveDataContainer.timeFromStartOfNewSession);
             }
 
 
-            saveDataContainer.averageTimeBetweenMerges = (timeFromStartOfNewSession / saveDataContainer.totalMerges).ToString();
+            saveDataContainer.averageTimeBetweenMerges = (saveDataContainer.timeFromStartOfNewSession / saveDataContainer.totalMerges).ToString();
         }
         public void AddToDeadBalls()
         {
@@ -241,7 +248,7 @@ namespace GoogleSheetsForUnity
         {
             saveDataContainer.totalDropCount++;
 
-            saveDataContainer.averageDropTime = (timeFromStartOfNewSession / saveDataContainer.totalDropCount).ToString();
+            saveDataContainer.averageDropTime = (saveDataContainer.timeFromStartOfNewSession / saveDataContainer.totalDropCount).ToString();
         }
         public void UpdateScores(ScoreType scoreType, int score)
         {
@@ -267,46 +274,46 @@ namespace GoogleSheetsForUnity
         {
             if (score > expectedScores[0] && saveDataContainer.timeGet5000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet5000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet5000Points, (int)saveDataContainer.timeFromStartOfNewSession);
             }
             else if (score > expectedScores[1] && saveDataContainer.timeGet10000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet10000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet10000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[2] && saveDataContainer.timeGet25000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet25000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet25000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[3] && saveDataContainer.timeGet50000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet50000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet50000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[4] && saveDataContainer.timeGet100000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet100000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet100000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[5] && saveDataContainer.timeGet150000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet150000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet150000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[6] && saveDataContainer.timeGet250000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet250000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet250000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[7] && saveDataContainer.timeGet500000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet500000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet500000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
             else if (score > expectedScores[8] && saveDataContainer.timeGet1000000Points == "null")
             {
-                RecordTimeToString(ref saveDataContainer.timeGet1000000Points, (int)timeFromStartOfNewSession);
+                RecordTimeToString(ref saveDataContainer.timeGet1000000Points, (int)saveDataContainer.timeFromStartOfNewSession);
 
             }
 
@@ -317,16 +324,16 @@ namespace GoogleSheetsForUnity
             {
                 case FillAmount.fill30:
                     if (saveDataContainer.timeContainerFilled30percent == "null")
-                        RecordTimeToString(ref saveDataContainer.timeContainerFilled30percent, (int)timeFromStartOfNewSession);
+                        RecordTimeToString(ref saveDataContainer.timeContainerFilled30percent, (int)saveDataContainer.timeFromStartOfNewSession);
                     break;
                 case FillAmount.fill60:
                     if (saveDataContainer.timeContainerFilled60percent == "null")
-                        RecordTimeToString(ref saveDataContainer.timeContainerFilled60percent, (int)timeFromStartOfNewSession);
+                        RecordTimeToString(ref saveDataContainer.timeContainerFilled60percent, (int)saveDataContainer.timeFromStartOfNewSession);
 
                     break;
                 case FillAmount.fill90:
                     if (saveDataContainer.timeContainerFilled90percent == "null")
-                        RecordTimeToString(ref saveDataContainer.timeContainerFilled90percent, (int)timeFromStartOfNewSession);
+                        RecordTimeToString(ref saveDataContainer.timeContainerFilled90percent, (int)saveDataContainer.timeFromStartOfNewSession);
 
                     break;
                 default:
@@ -387,7 +394,7 @@ namespace GoogleSheetsForUnity
         }
         public void DataReset()
         {
-            timeFromStartOfNewSession = 0;
+            saveDataContainer.timeFromStartOfNewSession = 0;
 
             saveDataContainer.totalMerges = 0;
             saveDataContainer.maxBallIndexReached = 0;
@@ -444,6 +451,19 @@ namespace GoogleSheetsForUnity
             saveDataContainer.combo14 = 0;
             saveDataContainer.combo15 = 0;
 
+        }
+
+
+
+
+        public void LoadData(GameData data)
+        {
+            saveDataContainer = data.googleSheetData;
+        }
+
+        public void SaveData(GameData data)
+        {
+            data.googleSheetData = saveDataContainer;
         }
     }
 }

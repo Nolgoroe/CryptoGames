@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class PowerupBase : MonoBehaviour
+public abstract class PowerupBase : MonoBehaviour, ISaveLoadable
 {
     [Header("needed refs")]
     [SerializeField] Image powerupImage;
@@ -16,7 +16,7 @@ public abstract class PowerupBase : MonoBehaviour
     [SerializeField] float lowerOnContainerOverSixty = 1;
 
     [Header("Live data")]
-    [SerializeField] float currentPowerAmount;
+    [SerializeField] protected float currentPowerAmount;
 
 
     private void Start()
@@ -95,5 +95,16 @@ public abstract class PowerupBase : MonoBehaviour
     public Button ReturnPowerButtonPrefab()
     {
         return powerupButton;
+    }
+
+    public void LoadData(GameData data)
+    {
+        currentPowerAmount = data.currentPowerupAmounts[RetrunPowerID() - 1];
+        AddToPower(0);
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.currentPowerupAmounts[RetrunPowerID() - 1] = currentPowerAmount;
     }
 }

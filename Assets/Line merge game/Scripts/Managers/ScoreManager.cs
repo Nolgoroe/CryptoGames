@@ -10,7 +10,7 @@ public enum ScoreType
     NewAll
 }
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour, ISaveLoadable
 {
     public static ScoreManager instance;
 
@@ -62,5 +62,25 @@ public class ScoreManager : MonoBehaviour
     {
         currentScore -= amount;
         UIManager.instance.UpdateScoreText(currentScore);
+    }
+
+
+
+
+
+    public void LoadData(GameData data)
+    {
+        currentScore = data.gameCurrentScore;
+        currentScoreNoMulti = data.gameCurrentScoreNoMulti;
+        currentOldScore = data.gameCurrentOldScore;
+
+        UIManager.instance.UpdateScoreText(currentScore);
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.gameCurrentScore = currentScore;
+        data.gameCurrentScoreNoMulti = currentScoreNoMulti;
+        data.gameCurrentOldScore = currentOldScore;
     }
 }

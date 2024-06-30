@@ -61,10 +61,7 @@ public class GameManager : MonoBehaviour
         //flag - temp
         limitMaxBall = controlLimitMaxBall;
 
-
-        UpdateSaveData();
-
-        UnityGoogleSheetsSaveData.Instance.DataReset(); //FLAG - WHY IS THIS HERE?!
+        UnityGoogleSheetsSaveData.Instance.UpdateRangeOfBalls(0, limitMaxBall);
 
         onGameOver += RestartGame;
     }
@@ -139,6 +136,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        UpdateSaveData();
+
         UnityGoogleSheetsSaveData.Instance.CallSaveState();
 
         //add delay
@@ -149,6 +148,10 @@ public class GameManager : MonoBehaviour
     IEnumerator DelayBeforeReset()
     {
         yield return new WaitForSeconds(2); //FLAG magic numbers
+
+        UnityGoogleSheetsSaveData.Instance.DataReset(); //FLAG - WHY IS THIS HERE?!
+
+        yield return new WaitForSeconds(1); //FLAG magic numbers
         SceneManager.LoadScene(0);
     }
 
@@ -165,7 +168,6 @@ public class GameManager : MonoBehaviour
 
     private void UpdateSaveData()
     {
-        UnityGoogleSheetsSaveData.Instance.UpdateRangeOfBalls(0, limitMaxBall);
         UnityGoogleSheetsSaveData.Instance.AddToGamesThisSession();
     }
 }

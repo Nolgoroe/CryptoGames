@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System;
 using GoogleSheetsForUnity; //FLAG - should this be here
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour, ISaveLoadable
 {
     [Header("Needed references")]
 
@@ -23,6 +23,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] float currentDelayBetweenDrops = 0;
     [SerializeField] GameObject currentNonPhysDisplay;
     [SerializeField] BallBase currentPhysBall;
+    [SerializeField] int currentPhysBallIndex;
     [SerializeField] BallBase nextPhysBall;
 
     [Header("Live Spawn data")]
@@ -39,12 +40,12 @@ public class Spawner : MonoBehaviour
         int seed = seedString.GetHashCode();
 
         UnityEngine.Random.InitState(seed);
+
         currentDelayBetweenDrops = 0;
 
         GameManager.onGameOver += ResetSpawnerData;
 
         SpawnBallOnStart();
-
     }
 
     private void Update()
@@ -149,6 +150,8 @@ public class Spawner : MonoBehaviour
         if (!nextPhysBall) return;
 
         currentPhysBall = nextPhysBall;
+        currentPhysBallIndex = currentPhysBall.ReturnBallIndex();
+
         int currentBallIndex = currentPhysBall.ReturnBallIndex();
         SpawnNonPhysDisplay(currentBallIndex);
 
@@ -185,7 +188,7 @@ public class Spawner : MonoBehaviour
 
 
 
-    public void SwapBalls(BallBase otherBall)
+    public void ForceNewBall(BallBase otherBall)
     {
         ////get rid of current displayed ball.
         Destroy(currentNonPhysDisplay.gameObject);
@@ -202,6 +205,19 @@ public class Spawner : MonoBehaviour
         if(livePhysBallSpawned)
             Destroy(livePhysBallSpawned.gameObject);
 
-        SwapBalls(classPhysBallSpawned);
+        ForceNewBall(classPhysBallSpawned);
+    }
+
+
+
+    public void LoadData(GameData data)
+    {
+        currentPhysBallIndex = data.currentBallDropping;
+        ForceNewBall(GameManager.staticBallDatabase.balls[currentPhysBallIndex]);
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.currentBallDropping = currentPhysBallIndex;
     }
 }

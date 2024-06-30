@@ -208,6 +208,10 @@ public class GeneralStatsManager : MonoBehaviour
     {
         return ballAmountList[index].ballList;
     }
+    public List<BallAmountList> ReturnBallAmountsList()
+    {
+        return ballAmountList;
+    }
     public List<ComboCounter> ReturnComboCounterList()
     {
         return comboCounterList;

@@ -4,12 +4,6 @@ using UnityEngine;
 using GoogleSheetsForUnity; //Flag - should not be here
 public class Ball : BallBase, IMergable
 {
-    //[Header ("Merge explosion")]
-    //[SerializeField] LayerMask layerToDetect;
-    //[SerializeField] float radius = 5f;
-    //[SerializeField] private float bombPower = 2000;
-
-
     private void Start()
     {
         base.Start();

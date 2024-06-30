@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChooseNextBallPower : PowerupBase
+public class ChooseNextBallPower : PowerupBase, ISaveLoadable
 {
     [Header("Needed references")]
     [SerializeField] private Spawner player;
@@ -58,7 +58,7 @@ public class ChooseNextBallPower : PowerupBase
         Debug.Log(ballIndex);
 
         BallBase ball = GameManager.staticBallDatabase.balls[ballIndex];
-        player.SwapBalls(ball);
+        player.ForceNewBall(ball);
 
         localResetData();
     }

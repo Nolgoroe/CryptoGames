@@ -2,7 +2,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleSheetsForUnity; //FLAG - Should be here?
 
-public class ChainManager : MonoBehaviour
+[System.Serializable]
+public class comboSaveData
+{
+    public int currentComboReached;
+    public float currentTimeResetCombo;
+    public bool ComboDetected;
+}
+
+public class ChainManager : MonoBehaviour, ISaveLoadable
 {
     public static ChainManager instance;
 
@@ -11,10 +19,9 @@ public class ChainManager : MonoBehaviour
     [Header("Combo Detection Stats")]
     [SerializeField] float timeBeforeResetCombo;
 
+
     [Header("live Combo Data")]
-    [SerializeField] int currentComboReached;
-    [SerializeField] float currentTimeResetCombo;
-    [SerializeField] bool ComboDetected;
+    public comboSaveData comboData;
 
     [Header("live multiplier Data")]
     public static float currentMultiplierReached = 1;
@@ -31,11 +38,11 @@ public class ChainManager : MonoBehaviour
 
     private void Update()
     {
-        if (ComboDetected)
+        if (comboData.ComboDetected)
         {
-            currentTimeResetCombo -= Time.deltaTime;
+            comboData.currentTimeResetCombo -= Time.deltaTime;
 
-            if (currentTimeResetCombo < 0)
+            if (comboData.currentTimeResetCombo < 0)
             {
                 ResetChainTimer();
 
@@ -46,20 +53,20 @@ public class ChainManager : MonoBehaviour
 
     private void ResetChainTimer()
     {
-        ComboDetected = false;
-        currentTimeResetCombo = timeBeforeResetCombo;
+        comboData.ComboDetected = false;
+        comboData.currentTimeResetCombo = timeBeforeResetCombo;
 
-        Debug.Log("Reset at: " + currentComboReached);
+        Debug.Log("Reset at: " + comboData.currentComboReached);
 
-        GeneralStatsManager.instance.AddToComboCounter(currentComboReached);
-        currentComboReached = 0;
+        GeneralStatsManager.instance.AddToComboCounter(comboData.currentComboReached);
+        comboData.currentComboReached = 0;
     }
 
     private void NotifyAllObservers(BallBase ball)
     {
         foreach (IChainAction observer in chainActions)
         {
-            observer.NotifyObserver(ball, currentComboReached);
+            observer.NotifyObserver(ball, comboData.currentComboReached);
         }
     }
     private void ResetAllObservers()
@@ -88,16 +95,16 @@ public class ChainManager : MonoBehaviour
         //temp
         if (!GameManager.gameIsRunning) return;
 
-        currentComboReached++;
-        UnityGoogleSheetsSaveData.Instance.TranslateComboListToSpecificData(currentComboReached);
+        comboData.currentComboReached++;
+        UnityGoogleSheetsSaveData.Instance.TranslateComboListToSpecificData(comboData.currentComboReached);
 
-        currentTimeResetCombo = timeBeforeResetCombo;
+        comboData.currentTimeResetCombo = timeBeforeResetCombo;
 
-        ComboDetected = true;
+        comboData.ComboDetected = true;
 
         NotifyAllObservers(ball);
 
-        GeneralStatsManager.instance.TrackComboData(currentComboReached);
+        GeneralStatsManager.instance.TrackComboData(comboData.currentComboReached);
     }
 
     public void AddObserver(IChainAction observerChain)
@@ -110,4 +117,17 @@ public class ChainManager : MonoBehaviour
         chainActions.Remove(observerChain);
     }
 
+
+
+
+
+    public void LoadData(GameData data)
+    {
+        comboData = data.comboSaveData;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.comboSaveData = comboData;
+    }
 }
