@@ -80,7 +80,7 @@ namespace GoogleSheetsForUnity
         public static UnityGoogleSheetsSaveData Instance { get; private set; }
 
         // For the table to be created and queried.
-        private string _tableName = "bla";
+        private string _tableName = "Cloud Save Data";
 
         [Header("Save Data")]
         public SaveDataContainer saveDataContainer;
