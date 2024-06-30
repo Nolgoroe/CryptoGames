@@ -12,9 +12,6 @@ public class GameManager : MonoBehaviour
     public static bool gameIsControllable;
     public static event Action onGameOver;
     public static BallDatabaseSO staticBallDatabase;
-    public static int limitMaxBall;
-
-    [SerializeField] int controlLimitMaxBall;
     //[SerializeField] int originalBallLimit = 3;
 
     [Header("Needed References")]
@@ -58,10 +55,6 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DelayBeforeStart()); //FLAG temp - think of better way to wait for all prelude to finish.. maybe remove from list when done and then check when list is empty after every remove?
 
-        //flag - temp
-        limitMaxBall = controlLimitMaxBall;
-
-        UnityGoogleSheetsSaveData.Instance.UpdateRangeOfBalls(0, limitMaxBall);
 
         onGameOver += RestartGame;
     }
@@ -92,15 +85,6 @@ public class GameManager : MonoBehaviour
         onGameOver?.Invoke();
     }
 
-    public void UpdateBallIndexReached(int index)
-    {
-        limitMaxBall = index;
-
-        if(limitMaxBall > controlLimitMaxBall)
-        {
-            limitMaxBall = controlLimitMaxBall;
-        }
-    }
 
     public void SendAddToTimer(float amount)
     {

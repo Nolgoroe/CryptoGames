@@ -629,6 +629,13 @@ MonoBehaviour:
   constBoundOffset: 0.6
   delayBetweenDrops: 0.5
   cancelTouchPosUpOffset: 0.5
+  ballsCanSpawn:
+  - ball: {fileID: -904394378433852525, guid: 3084bfe48ea830b4eb71a9bd39d314bb, type: 3}
+    percentageToSpawn: 50
+  - ball: {fileID: -2328189678396353387, guid: 979891e3f5916294da5530616526d483, type: 3}
+    percentageToSpawn: 30
+  - ball: {fileID: 214555923583516394, guid: 59c38b63721690948ba67cda0bb7c6e9, type: 3}
+    percentageToSpawn: 20
   currentDelayBetweenDrops: 0
   currentNonPhysDisplay: {fileID: 0}
   currentPhysBall: {fileID: 0}
@@ -4071,7 +4078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea5d9f13dbf4c40837c62af6a0827a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlLimitMaxBall: 2
   currentBallDatabase: {fileID: 11400000, guid: de0958c1f1fea4e49b148f2b399763b0,
     type: 2}
   startDelay: 0

@@ -22,6 +22,8 @@ public class SaveLoadManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        DontDestroyOnLoad(this);
+
         instance = this;
     }
 

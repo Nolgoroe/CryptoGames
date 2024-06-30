@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using GoogleSheetsForUnity; //FLAG - should this be here
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System;
-using GoogleSheetsForUnity; //FLAG - should this be here
 
+[System.Serializable]
+public class LimitedSpawnBalls
+{
+    public BallBase ball;
+    public int percentageToSpawn = 100;
+}
 public class Spawner : MonoBehaviour, ISaveLoadable
 {
-    [Header("Needed references")]
+    public static Spawner instance;
+
 
     [Header("Preset data")]
     [SerializeField] Transform leftBound;
@@ -18,6 +23,7 @@ public class Spawner : MonoBehaviour, ISaveLoadable
     [SerializeField] float constBoundOffset = 0.7f;
     [SerializeField] float delayBetweenDrops = 1;
     [SerializeField] float cancelTouchPosUpOffset = 0.5f;
+    [SerializeField] LimitedSpawnBalls[] ballsCanSpawn;
 
     [Header("Live data")]
     [SerializeField] float currentDelayBetweenDrops = 0;
@@ -34,12 +40,16 @@ public class Spawner : MonoBehaviour, ISaveLoadable
 
     private void Start()
     {
+        instance = this;
+
         DateTime now = DateTime.Now;
         //string seedString = now.ToString("yyyyMMddHHmmssfff");
         string seedString = now.ToString("yyyyMMdd");
         int seed = seedString.GetHashCode();
 
         UnityEngine.Random.InitState(seed);
+
+        UnityGoogleSheetsSaveData.Instance.UpdateRangeOfBalls(0, ballsCanSpawn.Length - 1);
 
         currentDelayBetweenDrops = 0;
 
@@ -68,12 +78,12 @@ public class Spawner : MonoBehaviour, ISaveLoadable
             FollowMouse();
         }
 
-        if(touch.phase == TouchPhase.Moved)
+        if (touch.phase == TouchPhase.Moved)
         {
             FollowMouse();
         }
 
-        if(touch.phase == TouchPhase.Ended)
+        if (touch.phase == TouchPhase.Ended)
         {
             if (currentDelayBetweenDrops > 0) return;
 
@@ -99,7 +109,7 @@ public class Spawner : MonoBehaviour, ISaveLoadable
             UnityGoogleSheetsSaveData.Instance.UpdateDataOnDropBall();
         }
     }
-    
+
     private bool CheckIsTouchPosLowerPlayer(Vector2 touchPos)
     {
         Vector2 pos = Camera.main.ScreenToWorldPoint(touchPos);
@@ -137,9 +147,9 @@ public class Spawner : MonoBehaviour, ISaveLoadable
 
     private void SpawnBallOnStart()
     {
-        int randomNum = UnityEngine.Random.Range(0, GameManager.limitMaxBall + 1); //Excludes last num, so + 1 to reverse the exclude.
-        currentPhysBall = GameManager.staticBallDatabase.balls[randomNum];
-        SpawnNonPhysDisplay(randomNum);
+        //int randomNum = UnityEngine.Random.Range(0, Spawner.limitMaxBall + 1); //Excludes last num, so + 1 to reverse the exclude.
+        currentPhysBall = RollBallNumbers();
+        SpawnNonPhysDisplay(currentPhysBall.ReturnBallIndex());
 
         SetNewBoundOffset(currentPhysBall);
 
@@ -165,11 +175,39 @@ public class Spawner : MonoBehaviour, ISaveLoadable
     }
     private void DecideNextBall()
     {
-        int randomNum = UnityEngine.Random.Range(0, GameManager.limitMaxBall + 1); //Excludes last num, so + 1 to reverse the exclude.
-        nextPhysBall = GameManager.staticBallDatabase.balls[randomNum];
+        nextPhysBall = RollBallNumbers();
 
         //set next ball in UI - send for UI Manager to take care of it.
         UIManager.instance.SetNextBallDisplay(nextPhysBall);
+    }
+
+    private BallBase RollBallNumbers()
+    {
+        BallBase ball = null;
+
+        int randomNum = UnityEngine.Random.Range(0, 101);
+        Debug.Log(randomNum);
+        int low;    
+        int high = 0;
+        for (int i = 0; i < ballsCanSpawn.Length; i++)
+        {
+            low = high; // set low limit
+            high += ballsCanSpawn[i].percentageToSpawn; // set high limit
+
+            if (randomNum >= low && randomNum <= high)
+            {
+                ball = GameManager.staticBallDatabase.balls[i];
+                return ball;
+            }
+        }
+
+
+
+
+
+
+        return ball;
+
     }
     private void SetNewBoundOffset(BallBase ballData)
     {
@@ -202,11 +240,20 @@ public class Spawner : MonoBehaviour, ISaveLoadable
 
     public void UndoAction()
     {
-        if(livePhysBallSpawned)
+        if (livePhysBallSpawned)
             Destroy(livePhysBallSpawned.gameObject);
 
         ForceNewBall(classPhysBallSpawned);
     }
+    //public void UpdateBallIndexReached(int index)
+    //{
+    //    limitMaxBall = index;
+
+    //    if (limitMaxBall > 2)
+    //    {
+    //        limitMaxBall = 2;
+    //    }
+    //}
 
 
 

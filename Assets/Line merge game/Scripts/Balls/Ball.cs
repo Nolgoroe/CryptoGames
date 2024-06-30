@@ -49,10 +49,10 @@ public class Ball : BallBase, IMergable
             {
                 if (ballIndex + 1 < GameManager.staticBallDatabase.balls.Length)
                 {
-                    if (ballIndex + 1 > GameManager.limitMaxBall && ballIndex + 1 < GameManager.staticBallDatabase.balls.Length - 1)
-                    {
-                        GameManager.instance.UpdateBallIndexReached(ballIndex + 1); //does this break single responsibility? FLAG
-                    }
+                    //if (ballIndex + 1 > Spawner.limitMaxBall && ballIndex + 1 < GameManager.staticBallDatabase.balls.Length - 1)
+                    //{
+                    //    Spawner.instance.UpdateBallIndexReached(ballIndex + 1); //does this break single responsibility? FLAG
+                    //}
 
                     SpawnNewBall(otherBall);
 
