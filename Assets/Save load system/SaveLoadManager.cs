@@ -43,6 +43,12 @@ public class SaveLoadManager : MonoBehaviour
     {
         gameData = dataHandler.Load();
 
+        if(gameData.googleSheetData.buildVersion == "null")
+        {
+            DeleteData();
+            return;
+        }
+
         if(gameData == null)
         {
             Debug.Log("No save data found - creating default data");
