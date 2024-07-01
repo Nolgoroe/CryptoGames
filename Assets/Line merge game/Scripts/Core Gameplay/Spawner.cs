@@ -50,6 +50,7 @@ public class Spawner : MonoBehaviour, ISaveLoadable
         UnityEngine.Random.InitState(seed);
 
         UnityGoogleSheetsSaveData.Instance.UpdateRangeOfBalls(0, ballsCanSpawn.Length - 1);
+        UnityGoogleSheetsSaveData.Instance.UpdateBallProbabilities(ballsCanSpawn);
 
         currentDelayBetweenDrops = 0;
 
@@ -60,7 +61,7 @@ public class Spawner : MonoBehaviour, ISaveLoadable
 
     private void Update()
     {
-        if (!GameManager.gameIsRunning || !GameManager.gameIsControllable) return;
+        if (!GameManager.gameIsRunning || !GameManager.gameIsControllable || GameManager.gameIsRestarting) return;
         if (EventSystem.current.IsPointerOverGameObject(0)) return;
 
         CountDropCooldown();

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public static bool gameIsRunning;
     public static bool gameIsControllable;
+    public static bool gameIsRestarting;
     public static event Action onGameOver;
     public static BallDatabaseSO staticBallDatabase;
     //[SerializeField] int originalBallLimit = 3;
@@ -48,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        gameIsRestarting = false; 
+
         foreach (IPrelude toDo in preludeActions)
         {
             toDo.DoAction();
@@ -55,6 +58,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DelayBeforeStart()); //FLAG temp - think of better way to wait for all prelude to finish.. maybe remove from list when done and then check when list is empty after every remove?
 
+        UnityGoogleSheetsSaveData.Instance.UpdateAllBallSizes(currentBallDatabase.balls);
 
         onGameOver += RestartGame;
     }
@@ -81,6 +85,8 @@ public class GameManager : MonoBehaviour
     {
         gameIsRunning = false;
         SetGameIsControllable(false);
+
+        UnityGoogleSheetsSaveData.Instance.UpdateEndCondition("Lose");
 
         onGameOver?.Invoke();
     }
@@ -118,8 +124,16 @@ public class GameManager : MonoBehaviour
         SetGameIsControllable(true);
     }
 
-    public void RestartGame()
+    public void ButtonRestartGame()
     {
+        UnityGoogleSheetsSaveData.Instance.UpdateEndCondition("Restart");
+        RestartGame();
+    }
+    private void RestartGame()
+    {
+        if (gameIsRestarting) return;
+
+        gameIsRestarting = true;
         UpdateSaveData();
 
         UnityGoogleSheetsSaveData.Instance.CallSaveState();
@@ -131,11 +145,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DelayBeforeReset()
     {
-        yield return new WaitForSeconds(2); //FLAG magic numbers
+        yield return new WaitForSeconds(0.5f); //FLAG magic numbers
 
         UnityGoogleSheetsSaveData.Instance.DataReset(); //FLAG - WHY IS THIS HERE?!
 
-        yield return new WaitForSeconds(1); //FLAG magic numbers
+        yield return new WaitForSeconds(0.5f); //FLAG magic numbers
         SceneManager.LoadScene(0);
     }
 

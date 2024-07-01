@@ -948,14 +948,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveDataContainer:
-    playerID: avi
+    playerID: Rando
     rangeOfBalls: null
-    offsetBallSizes: Base + 5%
+    allBallSizes: Base + 5%
     buildVersion: null
     gameDate: 
     appLaunchTime: 
     timeUntilAppClose: 1000
     gamesThisSession: 0
+    endCondition: null
     totalMerges: 0
     timeToFirstMerge: null
     averageTimeBetweenMerges: null
@@ -964,6 +965,9 @@ MonoBehaviour:
     averageDropTime: null
     consecutiveBallsDroppedWithinXTime: 0
     deadBalls: 0
+    ball1Probability: 0
+    ball2Probability: 0
+    ball3Probability: 0
     power1UseCount: 0
     power2UseCount: 0
     power3UseCount: 0
@@ -977,6 +981,7 @@ MonoBehaviour:
     timeGet10000Points: null
     timeGet25000Points: null
     timeGet50000Points: null
+    timeGet75000Points: null
     timeGet100000Points: null
     timeGet150000Points: null
     timeGet250000Points: null
@@ -998,7 +1003,7 @@ MonoBehaviour:
     combo15: 0
     timeFromStartOfNewSession: 0
   currentGameTime: 0
-  expectedScores: 8813000010270000a861000050c30000a0860100f049020090d0030020a1070040420f00
+  expectedScores: 8813000010270000a861000050c30000f8240100a0860100f049020090d0030020a1070040420f00
 --- !u!1 &314855799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,8 +1191,20 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1636709597}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RestartGame
+        m_MethodName: ButtonRestartGame
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 398402467}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1721,7 +1738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf4f55f1b4075a4c8f45fa173367dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeResetCombo: 2
+  timeBeforeResetCombo: 1.5
   comboData:
     currentComboReached: 0
     currentTimeResetCombo: 0
@@ -3170,7 +3187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
