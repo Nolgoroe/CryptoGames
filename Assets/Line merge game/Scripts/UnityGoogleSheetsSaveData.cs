@@ -493,11 +493,18 @@ namespace GoogleSheetsForUnity
         public void LoadData(GameData data)
         {
             saveDataContainer = data.googleSheetData;
+
+            ForceResetData();
         }
 
         public void SaveData(GameData data)
         {
             data.googleSheetData = saveDataContainer;
+        }
+
+        private void ForceResetData()
+        {
+            saveDataContainer.gamesThisSession = 0;
         }
     }
 }
